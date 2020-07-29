@@ -1,0 +1,11 @@
+/* This is to align sub/superscripts on the same element */
+.subsup {
+    position: relative;
+    left: 0
+}
+
+.subsup sup {
+    position: absolute;
+    left: 0;
+    top: .4em;
+}
