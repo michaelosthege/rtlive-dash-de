@@ -55,7 +55,7 @@
 
             <h3>Worin unterscheidet sich diese Analyse von der <a href="https://www.rki.de/covid-19-nowcasting.html">Berechnung des RKI</a>?</h3>
             <p>
-              Das <a href="https://rt.live">Rt.live</a> Modell berücksichtigt neben dem zeitlichen Verzug zwischen Infektion und positiv-Testergebnis auch die Anzahl der täglich durchgeführten Tests.
+              Das <a href="https://rt.live">rt.live</a> Modell berücksichtigt neben dem zeitlichen Verzug zwischen Infektion und positiv-Testergebnis auch die Anzahl der täglich durchgeführten Tests.
               In unserer Detail-Ansicht ist dargestellt, dass die Zahl der täglichen Test in Deutschland im Wochentakt schwankt.
             </p>
             <p>
@@ -76,6 +76,37 @@
               </span>
               kann also gelesen werden als <span class="font-italic">"Unsere Analyse hat ergeben, dass X mit 90&nbsp;%iger Wahrscheinlichkeit zwischen 0.78 und 1.11 liegt."</span>.
             </p>
+
+            <h3>Nach welchen Regeln werden die Farben der Ellipsen gewählt?</h3>
+            <p>
+                Für die Reproduktionszahl wählen wir die Farbe anhand der Wahrscheinlichkeit, dass R&nbsp;>&nbsp;1 ist.
+            </p>
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th class="col-3">Wahrscheinlichkeitsbereich</th>
+                  <th class="col-9">Farbe</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>0-25 %</td>
+                  <td><span class="badge badge-success">grün</span></td>
+                </tr>
+                <tr>
+                  <td>25-50 %</td>
+                  <td><span class="badge badge-secondary">grau</span></td>
+                </tr>
+                <tr>
+                  <td>50-75 %</td>
+                  <td><span class="badge badge-warning">orange</span></td>
+                </tr>
+                <tr>
+                  <td>75-100 %</td>
+                  <td><span class="badge badge-danger">rot</span></td>
+                </tr>
+              </tbody>
+            </table>
 
             <h3>Welche Schwächen hat die Methode?</h3>
             <p>
@@ -139,7 +170,7 @@
         <div class="col-md-6">
           <h5 style="color:white">Referenzen</h5>
           <ul class="list-unstyled text-small">
-            <li class="text-muted">Diese Analyse basiert auf <a href="https://rt.live">Rt.live</a>, einem Projekt von Kevin Systrom, Mike Krieger, Thomas Vladek und weiteren.</li>
+            <li class="text-muted">Diese Analyse basiert auf <a href="https://rt.live">rt.live</a>, einem Projekt von Kevin Systrom, Mike Krieger, Thomas Vladek und weiteren.</li>
             <li class="text-muted">Für die Anwendung auf Deutschland wurde das Modell von <a href="https://www.fz-juelich.de/SharedDocs/Personen/IBG/IBG-1/DE/Research_groups/bioproc/helleckes.html">Laura Helleckes</a> und <a href="https://www.fz-juelich.de/SharedDocs/Personen/IBG/IBG-1/DE/Research_groups/bioproc/osthege.html">Michael Osthege</a> um eine Vorhersage der täglich durchgeführten Tests erweitert.</li>
             <li class="text-muted">Datenverarbeitung: <a href="https://docs.pymc.io/">PyMC3</a>, <a href="https://arviz-devs.github.io/arviz">ArviZ</a>, <a href="https://pandas.pydata.org/">pandas</a>, <a href="https://facebook.github.io/prophet/">fbprophet</a></li>
             <li class="text-muted">Visualisierung: <a href="">matplotlib</a></li>

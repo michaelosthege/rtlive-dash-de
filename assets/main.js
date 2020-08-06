@@ -56,16 +56,23 @@ $(document).ready(function() {
             var rtTooltip = `Rt liegt mit 90&nbsp%iger Wahrscheinlichkeit zwischen ${r_t_lower} und ${r_t_upper}`;
 
             var indicator = 'success';
-            var indicatorTooltip = `R > 1 mit ${(json['p_r_t_gt_1'] * 100).toFixed(0)} % Wahrscheinlichkeit`;
-            var indicatorMessage = 'R < 1';
+            var indicatorMessage = `R < 1 (zu ${((1-json['p_r_t_gt_1']) * 100).toFixed(0)} %)`;
+            if (json['p_r_t_gt_1'] > 0.25) {
+                // grey for 25-50 % probability
+                indicator = 'secondary';
+                indicatorMessage = 'R < 1';
+            }
             if (json['p_r_t_gt_1'] > 0.5) {
+                // orange for 50-75 % probability
                 indicator = 'warning';
                 indicatorMessage = 'R > 1';
             }
-            if (json['p_r_t_gt_1'] > 0.8) {
+            if (json['p_r_t_gt_1'] > 0.75) {
+                // grey for >75 % probability
                 indicator = 'danger';
-                indicatorMessage = `R > 1 (${(json['p_r_t_gt_1'] * 100).toFixed(0)} % Wahrscheinlichkeit)`;
+                indicatorMessage = `R > 1 (zu ${(json['p_r_t_gt_1'] * 100).toFixed(0)} %)`;
             }
+            var indicatorTooltip = `R > 1 mit ${(json['p_r_t_gt_1'] * 100).toFixed(0)} % Wahrscheinlichkeit`;
 
             // var active = json['active'].toFixed(0);
             // var active_lower = json['active_lower'].toFixed(0);
