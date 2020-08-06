@@ -95,7 +95,7 @@ $(document).ready(function() {
                                 <sup>${r_t_upper}</sup>
                             </span>
                         </span>
-                        <span class="badge badge-pill badge-${indicator} float-right" data-toggle="tooltip" data-placement="top" title="${indicatorTooltip}">
+                        <span class="badge badge-pill badge-${indicator} float-right" data-toggle="tooltip" data-placement="top" title="${indicatorTooltip}" style="margin-top: 0.3em;">
                             ${indicatorMessage}
                         </span>
                     </p>
