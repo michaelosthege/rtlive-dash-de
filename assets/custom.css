@@ -9,3 +9,19 @@
     left: 0;
     top: .4em;
 }
+
+/* Color scheme */
+.bg-light {
+    background-color: #f7f6f3 !important;
+}
+.jumbotron {
+    background-color: #f7f6f3 !important;
+}
+
+/* custom symbols */
+.interval {
+    height:1.3em;
+    vertical-align: text-bottom;
+    padding-top: -0.1em;
+    padding-bottom: -0.1em;
+}

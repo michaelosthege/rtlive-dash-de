@@ -19,21 +19,21 @@ regions = {
 };
 population = {
     'all': 83019000,
+    'BB': 2512000,
+    'BE': 3645000,
     'BW': 11070000,
     'BY': 13077000,
-    'BE': 3645000,
-    'BB': 2512000,
     'HB': 683000,
-    'HH': 1841000,
     'HE': 6266000,
+    'HH': 1841000,
     'MV': 1610000,
     'NI': 7982000,
     'NW': 179333000,
     'RP': 4085000,
+    'SH': 2897000,
     'SL': 991000,
     'SN': 4078000,
     'ST': 2208000,
-    'SH': 2897000,
     'TH': 2143000,
 }
 
@@ -49,7 +49,14 @@ $(document).ready(function() {
 
             // unpack JSON information into local variables (easier for formatting)
             var last_updated = moment(json['last_updated']).locale('de').fromNow();
+
+            var r_t = json['r_t'].toFixed(2)
+            var r_t_lower = json['r_t_lower'].toFixed(2);
+            var r_t_upper = json['r_t_upper'].toFixed(2);
+            var rtTooltip = `Rt liegt mit 90&nbsp%iger Wahrscheinlichkeit zwischen ${r_t_lower} und ${r_t_upper}`;
+
             var indicator = 'success';
+            var indicatorTooltip = `R > 1 mit ${(json['p_r_t_gt_1'] * 100).toFixed(0)} % Wahrscheinlichkeit`;
             var indicatorMessage = 'R < 1';
             if (json['p_r_t_gt_1'] > 0.5) {
                 indicator = 'warning';
@@ -57,41 +64,45 @@ $(document).ready(function() {
             }
             if (json['p_r_t_gt_1'] > 0.8) {
                 indicator = 'danger';
-                indicatorMessage = `R > 1 mit ${(json['p_r_t_gt_1'] * 100).toFixed(0)} % Wahrscheinlichkeit`;
+                indicatorMessage = `R > 1 (${(json['p_r_t_gt_1'] * 100).toFixed(0)} % Wahrscheinlichkeit)`;
             }
-            var active = json['active'];
-            var active_lower = json['active_lower'];
-            var active_upper = json['active_upper'];
+
+            // var active = json['active'].toFixed(0);
+            // var active_lower = json['active_lower'].toFixed(0);
+            // var active_upper = json['active_upper'].toFixed(0);
+            //         <p class="card-text">
+            //         ${active}
+            //         <span class="subsup">
+            //             <sub>${active_lower}</sub>
+            //             <sup>${active_upper}</sup>
+            //         </span>&nbsp;infektiöse Fälle
+            //         </p>
 
             // generate the HTML markup for the region-specific card with metadata
             var html = `
             <div class="col-md-4">
                 <div class="card mb-4 shadow-sm">
-                <img width="100%" src="data/de_${region}_thumb.png" onclick="showRegion('${region}')"></img>
+                <img width="100%" style="cursor: pointer;" src="data/de_${region}_thumb.png" onclick="showRegion('${region}')"></img>
                 
                 <div class="card-body">
                     <label class="font-weight-bold">${regionTitle}</label>
                     <p class="card-text">
-                    R = ${json['r_t'].toFixed(2)}
-                    <span class="subsup">
-                        <sub>${json['r_t_lower'].toFixed(2)}</sub>
-                        <sup>${json['r_t_upper'].toFixed(2)}</sup>
-                    </span>
-                    <span class="badge badge-pill badge-${indicator} float-right">${indicatorMessage}</span>
-                    </p>
-
-                    <p class="card-text">
-                    ${active.toFixed(0)}
-                    <span class="subsup">
-                        <sub>${active_lower.toFixed(0)}</sub>
-                        <sup>${active_upper.toFixed(0)}</sup>
-                    </span>&nbsp;infektiöse Fälle
+                        <span data-toggle="tooltip" data-placement="top" title="${rtTooltip}">
+                            R = ${r_t}
+                            <img src="assets/interval.png" class="interval">
+                            <span class="subsup">
+                                <sub>${r_t_lower}</sub>
+                                <sup>${r_t_upper}</sup>
+                            </span>
+                        </span>
+                        <span class="badge badge-pill badge-${indicator} float-right" data-toggle="tooltip" data-placement="top" title="${indicatorTooltip}">
+                            ${indicatorMessage}
+                        </span>
                     </p>
 
                     <div class="d-flex justify-content-between align-items-center">
-                    <small class="text-muted">zuletzt aktualisiert ${last_updated}</small>
+                        <small class="text-muted">zuletzt aktualisiert ${last_updated}</small>
                     </div>
-                </div>
                 </div>
             </div>
             `;

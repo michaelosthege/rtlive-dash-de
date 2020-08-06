@@ -5,67 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="Laura Helleckes, Michael Osthege">
-  <title>Rt.live DE</title>
+  <title>Rtlive.de</title>
 
   <!-- CSS only -->
-  <link rel="stylesheet" href="assets/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <link rel="stylesheet" href="assets/custom.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
 
   <!-- JS, Popper.js, and jQuery -->
-  <script src="assets/jquery-3.5.1.min.js"></script>
-  <script src="assets/popper.min.js"></script>
-  <script src="assets/bootstrap.min.js"></script>
-  <script src="assets/moment-with-locales.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment-with-locales.min.js" integrity="sha512-qSnlnyh7EcD3vTqRoSP4LYsy2yVuqqmnkM9tW4dWo6xvAoxuVXyM36qZK54fyCmHoY1iKi9FJAUZrlPqmGNXFw==" crossorigin="anonymous"></script>
   <script src="assets/main.js"></script>
 </head>
 
 <body>
   <header>
-    <!-- <div class="collapse bg-dark" id="navbarHeader">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-8 col-md-7 py-4">
-            <h4 class="text-white">About</h4>
-            <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
-          </div>
-          <div class="col-sm-4 offset-md-1 py-4">
-            <h4 class="text-white">Contact</h4>
-            <ul class="list-unstyled">
-              <li><a href="#" class="text-white">Follow on Twitter</a></li>
-              <li><a href="#" class="text-white">Like on Facebook</a></li>
-              <li><a href="#" class="text-white">Email me</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div> -->
     <div class="navbar navbar-dark bg-dark shadow-sm">
       <div class="container d-flex justify-content-between">
         <a href="#" class="navbar-brand d-flex align-items-center">
-          <!--<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2" viewBox="0 0 24 24" focusable="false"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-          -->
-      <strong>Rt.live DE</strong>
+          <strong>Rtlive.de</strong>
         </a>
-        <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button> -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#faqModal">
+          Fragen und Antworten
+        </button>
       </div>
     </div>
   </header>
 
   <main role="main">
-
-    <section class="jumbotron text-center">
-      <div class="container">
-        <h1>Willkommen auf Rt.live DE</h1>
-        <p class="lead text-muted">Auf dieser Seite stellen wir tägliche Vorhersagen des R-Werts für verschiedene Bundesländer bereit.</p>
-        <p>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#faqModal">
-            FAQ
-          </button>
-        </p>
-      </div>
-    </section>
 
     <div class="modal fade" id="faqModal" tabindex="-1" role="dialog" aria-labelledby="faqModalTitle" style="display: none;" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
@@ -98,19 +67,12 @@
             <p>
               Die große Zahl beschreibt den Mittelwert, während die kleinen Zahlen den Bereich angeben in dem unsere Analyse den Wert mit 90&nbsp;%iger Wahrscheinlichkeit vermutet.
               X = 0.94
+              <img src="assets/interval.png" class="interval" />
               <span class="subsup">
                 <sub>0.78</sub>
                 <sup>1.11</sup>
-              </span>&nbsp;
+              </span>
               kann also gelesen werden als <span class="font-italic">"Unsere Analyse hat ergeben, dass X mit 90&nbsp;%iger Wahrscheinlichkeit zwischen 0.78 und 1.11 liegt."</span>.
-            </p>
-
-            <h3>Was sind <span class="font-italic">infektiöse Fälle</span>?</h3>
-            <p>
-              Damit bezeichnen wir die Zahl von Infizierten, die weiter an der Ausbreitung beteiligt sind. Sie ergibt sich in unserem Modell aus der Gesamtzahl der Infizierten, verrechnet mit der Wahrscheinlichkeitsverteilung, die
-              beschreibt wie lange ein Patient infektiös ist.
-              <br>
-              In der gesamten Analyse ist diese Zahl von den meisten Annahmen abhängig. Gerade bei niedrigen Fallzahlen sollte sie daher nur als eine grobe Schätzung verstanden werden.
             </p>
 
             <h3>Welche Schwächen hat die Methode?</h3>
@@ -158,7 +120,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <img id="regionModalImage" width="100%" src="de_all.png"></img>
+            <img id="regionModalImage" width="100%" src=""></img>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
@@ -172,20 +134,20 @@
   <footer class="footer mt-auto py-3 bg-dark">
     <div class="container">
       <div class="row">
-        <div class="col-4 col-md-6">
+        <div class="col-md-6">
           <h5 style="color:white">Referenzen</h5>
           <ul class="list-unstyled text-small">
             <li class="text-muted">Diese Analyse basiert auf <a href="https://rt.live">Rt.live</a>, einem Projekt von Kevin Systrom, Mike Krieger, Thomas Vladek und weiteren.</li>
-            <li class="text-muted">Für die Anwendung auf Deutschland wurde es von Laura Helleckes und Michael Osthege um eine Vorhersage der täglich durchgeführten Tests erweitert.</li>
+            <li class="text-muted">Für die Anwendung auf Deutschland wurde das Modell von Laura Helleckes und Michael Osthege um eine Vorhersage der täglich durchgeführten Tests erweitert.</li>
             <li class="text-muted">Datenverarbeitung: <a href="https://docs.pymc.io/">PyMC3</a>, <a href="https://arviz-devs.github.io/arviz">ArviZ</a>, <a href="https://pandas.pydata.org/">pandas</a>, <a href="https://facebook.github.io/prophet/">fbprophet</a></li>
             <li class="text-muted">Visualisierung: <a href="">matplotlib</a></li>
             <li class="text-muted">Webseite: <a href="https://getbootstrap.com/">Bootstrap</a>, <a href="https://momentjs.com/">Moment.js</a></li>
           </ul>
         </div>
-        <div class="col-6 col-md-6">
-          <h5 style="color:white">Impessum</h5>
+        <div class="col-md-6">
+          <h5 style="color:white">Kontakt</h5>
           <ul class="list-unstyled text-small">
-            <li><a class="text-muted">Forschungszentrum Jülich GmbH</a></li>
+            <li><a class="text-muted" href="mailto:m.osthege@fz-juelich.de?subject=Rtlive">Michael Osthege</a></li>
             <li><a class="text-muted" href="https://www.fz-juelich.de/ibg/ibg-1/DE/Home/home_node.html">IBG-1: Biotechnologie</a></li>
             <li><a class="text-muted" >Wilhelm-Johnen-Straße</a></li>
             <li><a class="text-muted">52428 Jülich</a></li>
