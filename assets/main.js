@@ -1,20 +1,20 @@
 regions = {
     'all': 'Gesamt',
+    'BB': 'Brandenburg',
+    'BE': 'Berlin',
     'BW': 'Baden-Württemberg',
     'BY': 'Bayern',
-    'BE': 'Berlin',
-    'BB': 'Brandenburg',
     //'HB': 'Bremen',
-    'HH': 'Hamburg',
     'HE': 'Hessen',
+    'HH': 'Hamburg',
     'MV': 'Mecklenburg-Vorpommern',
     'NI': 'Niedersachsen',
     'NW': 'Nordrhein-Westfalen',
     'RP': 'Rheinland-Pfalz',
+    'SH': 'Schleswig-Holstein',
     //'SL': 'Saarland',
     'SN': 'Sachsen',
     'ST': 'Sachsen-Anhalt',
-    'SH': 'Schleswig-Holstein',
     'TH': 'Thüringen',
 };
 population = {
@@ -45,8 +45,10 @@ function showRegion(region) {
 $(document).ready(function() {
     // iterate over all regions to create small cards
     $.each(regions, function(region, regionTitle) {
+        // first put in placeholders so the order is maintained!
+        $("#regionCards").append(`<div id="card${region}"></div>`);
+        // then fetch content to replace the placeholders (unordered callbacks!)
         $.getJSON(`data/de_${region}_summary.json`, function(json) {
-
             // unpack JSON information into local variables (easier for formatting)
             var last_updated = moment(json['last_updated']).locale('de').fromNow();
 
@@ -114,7 +116,7 @@ $(document).ready(function() {
             </div>
             `;
             // append the region to the list
-            $('#regionCards').append(html);
+            $(`#card${region}`).replaceWith(html);
             // end of json-load callback
         });
         // end of iterator
