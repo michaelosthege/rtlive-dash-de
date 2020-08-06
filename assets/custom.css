@@ -17,6 +17,12 @@
 .jumbotron {
     background-color: #f7f6f3 !important;
 }
+.footer .text-muted {
+    color: #AAAAAA !important;
+}
+.footer a {
+    color: #9595f0;
+}
 
 /* custom symbols */
 .interval {
