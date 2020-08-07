@@ -16,6 +16,9 @@
 }
 .jumbotron {
     background-color: #f7f6f3 !important;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+    margin-bottom: 0em;
 }
 .footer .text-muted {
     color: #AAAAAA !important;
