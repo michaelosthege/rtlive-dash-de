@@ -55,7 +55,7 @@ $(document).ready(function() {
             var r_t = json['r_t'].toFixed(2)
             var r_t_lower = json['r_t_lower'].toFixed(2);
             var r_t_upper = json['r_t_upper'].toFixed(2);
-            var rtTooltip = `Rt liegt mit 90&nbsp%iger Wahrscheinlichkeit zwischen ${r_t_lower} und ${r_t_upper}`;
+            var rtTooltip = `Rt liegt mit 90%iger Wahrscheinlichkeit zwischen ${r_t_lower} und ${r_t_upper}`;
 
             var indicator = 'success';
             var indicatorMessage = `R < 1 (zu ${((1-json['p_r_t_gt_1']) * 100).toFixed(0)} %)`;
