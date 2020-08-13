@@ -34,3 +34,14 @@
     padding-top: -0.1em;
     padding-bottom: -0.1em;
 }
+
+.detailsLink {
+    position: absolute;
+    top: 1em;
+    right: 1.5em;
+    pointer-events: none;
+    color:#AAAAAA;
+}
+.detailsLink span {
+    text-decoration: underline;
+}

@@ -92,6 +92,10 @@ $(document).ready(function() {
             <div class="col-md-4">
                 <div class="card mb-4 shadow-sm">
                 <img width="100%" style="cursor: pointer;" src="data/de_${region}_thumb.png" onclick="showRegion('${region}')"></img>
+                <div class="detailsLink">
+                    <span>Details</span>
+                    &#10095;
+                </div>
                 
                 <div class="card-body">
                     <label class="font-weight-bold">${regionTitle}</label>
