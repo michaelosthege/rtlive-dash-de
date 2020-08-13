@@ -27,6 +27,7 @@
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment-with-locales.min.js" integrity="sha512-qSnlnyh7EcD3vTqRoSP4LYsy2yVuqqmnkM9tW4dWo6xvAoxuVXyM36qZK54fyCmHoY1iKi9FJAUZrlPqmGNXFw==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js" integrity="sha512-FHsFVKQ/T1KWJDGSbrUhTJyS1ph3eRrxI228ND0EGaEp6v4a/vGwPWd3Dtd/+9cI7ccofZvl/wulICEurHN1pg==" crossorigin="anonymous"></script>
   <script src="assets/main.js"></script>
 </head>
 
@@ -197,8 +198,15 @@
       </div>
     </section>
 
+    <!-- Ranking chart -->
+    <section class="jumbotron" style="padding-top: 0; padding-bottom: 0;">
+      <div class="container">
+        <div id="rankingChart" class="svg-container"></div>
+      </div>
+    </section>
+
     <!-- Region thumbnail gallery -->
-    <div class="album py-5 bg-light">
+    <div class="album py-5 bg-light" style="padding-top: 0rem !important;">
       <div class="container">
         <div class="row" id="regionCards">
         </div>

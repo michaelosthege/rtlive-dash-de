@@ -45,3 +45,30 @@
 .detailsLink span {
     text-decoration: underline;
 }
+
+/* chart elements */
+#rankingChart {
+    pointer-events: none;
+}
+.bar {
+    opacity: 0.2;
+}
+.barBubble {
+    fill: white;
+    stroke-width: 1.5px;
+}
+.barLabel {
+    text-anchor: middle;
+    font-weight: bolder;
+    font-size: smaller;
+}
+.horizontalGrid {
+    fill: none;
+    shape-rendering: crispEdges;
+    stroke: #AAAAAA;
+    opacity: 0.15;
+    stroke-width: 1px;
+}
+.gridlineDark {
+    opacity: 1;
+}
