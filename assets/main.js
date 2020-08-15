@@ -1,5 +1,5 @@
 regions = {
-    'all': 'Gesamt Ø',
+    'all': 'Gesamt',
     'BE': 'Berlin',
     'BB': 'Brandenburg',
     'BW': 'Baden-Württemberg',
@@ -18,23 +18,23 @@ regions = {
     'TH': 'Thüringen',
 };
 population = {
-    'all': 83019000,
-    'BB': 2512000,
-    'BE': 3645000,
-    'BW': 11070000,
-    'BY': 13077000,
-    'HB': 683000,
-    'HE': 6266000,
-    'HH': 1841000,
-    'MV': 1610000,
-    'NI': 7982000,
-    'NW': 179333000,
-    'RP': 4085000,
-    'SH': 2897000,
-    'SL': 991000,
-    'SN': 4078000,
-    'ST': 2208000,
-    'TH': 2143000,
+    'all': 83_166_711,
+    'BB': 2_521_893,
+    'BE': 3_669_491,
+    'BW': 11_100_394,
+    'BY': 13_124_737,
+    'HB': 681_202,
+    'HE': 6_288_080,
+    'HH': 1_847_253,
+    'MV': 1_608_138,
+    'NI': 7_993_608,
+    'NW': 17_947_221,
+    'RP': 4_093_903,
+    'SH': 2_903_773,
+    'SL': 986_887,
+    'SN': 4_071_971,
+    'ST': 2_194_782,
+    'TH': 2_133_378,
 }
 
 function showRegion(region) {
@@ -110,7 +110,7 @@ function createRegionCard(region, regionTitle, json) {
         </div>
         
         <div class="card-body">
-            <label class="font-weight-bold">${regionTitle}</label>
+            <label class="font-weight-bold">${regionTitle} (${region.replace("all", "Ø")})</label>
             <p class="card-text">
                 <span data-toggle="tooltip" data-placement="top" title="${rtTooltip}">
                     R = ${r_t}
