@@ -45,15 +45,15 @@ function showRegion(region) {
 
 function indicatorColor(regionJson) {
     var color = "green";
-    if (regionJson['p_r_t_gt_1'] > 0.25) {
+    if (regionJson['r_t_threshold_probability'] > 0.25) {
         // grey for 25-50 % probability
         color = "grey";
     }
-    if (regionJson['p_r_t_gt_1'] > 0.5) {
+    if (regionJson['r_t_threshold_probability'] > 0.5) {
         // orange for 50-75 % probability
         color = "orange";
     }
-    if (regionJson['p_r_t_gt_1'] > 0.75) {
+    if (regionJson['r_t_threshold_probability'] > 0.75) {
         // grey for >75 % probability
         color = "red";
     }
@@ -70,23 +70,23 @@ function createRegionCard(region, regionTitle, json) {
     var rtTooltip = `Rt liegt mit 90%iger Wahrscheinlichkeit zwischen ${r_t_lower} und ${r_t_upper}`;
 
     var indicator = 'success';
-    var indicatorMessage = `R < 1 (zu ${((1-json['p_r_t_gt_1']) * 100).toFixed(0)} %)`;
-    if (json['p_r_t_gt_1'] > 0.25) {
+    var indicatorMessage = `R < 1 (zu ${((1-json['r_t_threshold_probability']) * 100).toFixed(0)} %)`;
+    if (json['r_t_threshold_probability'] > 0.25) {
         // grey for 25-50 % probability
         indicator = 'secondary';
         indicatorMessage = 'R < 1';
     }
-    if (json['p_r_t_gt_1'] > 0.5) {
+    if (json['r_t_threshold_probability'] > 0.5) {
         // orange for 50-75 % probability
         indicator = 'warning';
         indicatorMessage = 'R > 1';
     }
-    if (json['p_r_t_gt_1'] > 0.75) {
+    if (json['r_t_threshold_probability'] > 0.75) {
         // grey for >75 % probability
         indicator = 'danger';
-        indicatorMessage = `R > 1 (zu ${(json['p_r_t_gt_1'] * 100).toFixed(0)} %)`;
+        indicatorMessage = `R > 1 (zu ${(json['r_t_threshold_probability'] * 100).toFixed(0)} %)`;
     }
-    var indicatorTooltip = `R > 1 mit ${(json['p_r_t_gt_1'] * 100).toFixed(0)} % Wahrscheinlichkeit`;
+    var indicatorTooltip = `R > 1 mit ${(json['r_t_threshold_probability'] * 100).toFixed(0)} % Wahrscheinlichkeit`;
 
     // var active = json['active'].toFixed(0);
     // var active_lower = json['active_lower'].toFixed(0);
@@ -273,7 +273,7 @@ $(document).ready(function() {
     // wait until data for all regions was loaded before creating the ranking
     $.when.apply($, regionPromises).then(function() {
         // now create the ranking chart
-        createRankingChart(fullDataset, scope="r_t", sort_by="p_r_t_gt_1");
+        createRankingChart(fullDataset, scope="r_t", sort_by="r_t_threshold_probability");
     });
 
     // end of document-ready
