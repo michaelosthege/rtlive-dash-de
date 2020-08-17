@@ -1,4 +1,4 @@
-var regions = {
+var REGION_NAMES = {
     'all': 'Gesamt',
     'BE': 'Berlin',
     'BB': 'Brandenburg',
@@ -21,7 +21,7 @@ var FULL_DATASET = {};
 
 function showRegion(region) {
     $('#regionModal').modal('show');
-    $('#regionModalTitle').html(regions[region]);
+    $('#regionModalTitle').html(REGION_NAMES[region]);
     $('#regionModalImage').attr('src', `data/de_${region}.png`)
 };
 
@@ -260,7 +260,7 @@ function createRankingChart(scope, sort_by, indicator_scope) {
 $(document).ready(function() {
     // the region JSONs are loaded independently!
     var regionPromises = [];
-    $.each(regions, function(region, regionTitle) {
+    $.each(REGION_NAMES, function(region, regionTitle) {
         // first put in placeholders so the order is maintained!
         $("#regionCards").append(`<div id="card${region}"></div>`);
         // then fetch content to replace the placeholders (unordered callbacks!)
