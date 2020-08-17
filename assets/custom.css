@@ -27,6 +27,17 @@
     color: #9595f0;
 }
 
+/* Styling of the button group above the ranking chart */
+.btn-light {
+    border-color: lightgray;
+}
+.active {
+    box-shadow: inset 1px 1px 7px #AAAAAA;
+}
+.focus {
+    box-shadow: inset 1px 1px 7px #AAAAAA !important;
+}
+
 /* custom symbols */
 .interval {
     height:1.3em;

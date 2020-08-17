@@ -139,6 +139,8 @@ function getSortedDataObjects(scope, sort_by, indicator_scope) {
 };
 
 function createRankingChart(scope, sort_by, indicator_scope) {
+    // select the corresponding button
+    $(`#btnRank_${scope}`).button('toggle');
     // sort the data BEFORE creating the ordinal x-axis!
     var dobjects = getSortedDataObjects(scope, sort_by, indicator_scope)
     var regKeys = dobjects.map(function(entry){return entry.name;});
@@ -149,8 +151,9 @@ function createRankingChart(scope, sort_by, indicator_scope) {
 
     // create the chart SVG
     margin = ({top: 0, right: 5, bottom: 0, left: 5})
+    $('#rankingChart').html('');
     var svg = d3.select("div#rankingChart").append("svg")
-        .attr("viewBox", [-25, -10, width+25, height+30])
+        .attr("viewBox", [-50, -10, width+50, height+30])
         .classed("svg-content", true);
 
     // create an ordinal x dimension with entries for all the regions
@@ -184,6 +187,48 @@ function createRankingChart(scope, sort_by, indicator_scope) {
         .attr("class", "axis")
         .call(d3.axisLeft(yScale))
         .attr("transform", "translate(0, -0.5)");
+
+    // draw axis label
+    var axisLabelX = -30;
+    var axisLabelY = height / 2;
+    switch (scope){
+        case "r_t":
+            svg.append('g')
+                .attr('transform', `translate(${axisLabelX}, ${axisLabelY})`)
+                .append('text')
+                .attr('font-size', 'smaller')
+                .attr('text-anchor', 'middle')
+                .attr('transform', 'rotate(-90)')
+                .text("R")
+                ;
+            svg.append('g')
+                .attr('transform', `translate(${axisLabelX+3}, ${axisLabelY-7})`)
+                .append('text')
+                .attr('font-size', 'smaller')
+                .attr('text-anchor', 'middle')
+                .attr('transform', 'rotate(-90)')
+                .text("t")
+                ;
+            break;
+        case "infections_by_100k":
+            svg.append('g')
+                .attr('transform', `translate(${axisLabelX - 10}, ${axisLabelY})`)
+                .append('text')
+                .attr('font-size', 'x-small')
+                .attr('text-anchor', 'middle')
+                .attr('transform', 'rotate(-90)')
+                .text("tägliche Neuinfektionen")
+            ;
+            svg.append('g')
+                .attr('transform', `translate(${axisLabelX}, ${axisLabelY})`)
+                .append('text')
+                .attr('font-size', 'x-small')
+                .attr('text-anchor', 'middle')
+                .attr('transform', 'rotate(-90)')
+                .text("pro 100,000 Einwohner")
+            ;
+            break;
+    }
 
     // draw horizontal grid lines
     svg.selectAll("line.horizontalGrid").data(yScale.ticks(10)).enter()
@@ -275,7 +320,7 @@ $(document).ready(function() {
     // wait until data for all regions was loaded before creating the ranking
     $.when.apply($, regionPromises).then(function() {
         // now create the ranking chart
-        createRankingChart(scope="r_t", sort_by="r_t_threshold_probability", indicator_scope="r_t_threshold_probability");
+       // createRankingChart(scope="r_t", sort_by="r_t_threshold_probability", indicator_scope="r_t_threshold_probability");
         createRankingChart(scope="infections_by_100k", sort_by="infections_by_100k", indicator_scope="r_t_threshold_probability");
     });
 

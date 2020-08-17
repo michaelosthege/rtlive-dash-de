@@ -201,6 +201,15 @@
     <!-- Ranking chart -->
     <section class="jumbotron" style="padding-top: 0; padding-bottom: 0;">
       <div class="container">
+        <label><strong>Ansicht:</strong></label><br/>
+        <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
+          <label id="btnRank_r_t" class="btn btn-light" onclick="createRankingChart(scope='r_t', sort_by='r_t_threshold_probability', indicator_scope='r_t_threshold_probability')">
+            <input type="radio" name="options" id="option1" checked> Reproduktionszahl
+          </label>
+          <label id="btnRank_infections_by_100k" class="btn btn-light" onclick="createRankingChart(scope='infections_by_100k', sort_by='infections_by_100k', indicator_scope='r_t_threshold_probability')">
+            <input type="radio" name="options" id="option2"> Neuinfektionsrate
+          </label>
+        </div>
         <div id="rankingChart" class="svg-container"></div>
       </div>
     </section>
