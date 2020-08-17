@@ -117,29 +117,31 @@ function createRegionCard(region, regionTitle, json) {
     $(`#card${region}`).replaceWith(html);
 };
 
-function getSortedObjects(scope, sort_by, indicator_scope) {
-    var dlist = [];
+function getSortedDataObjects(scope, sort_by, indicator_scope) {
+    var dobjects = [];
+    // convert dict of region jsons to list of objects:
     $.each(FULL_DATASET, function (region, regionJson) {
-        dlist.push({
+        dobjects.push({
             "name": region.replace("all", "Ø"),
             "json": regionJson,
+            // pre-compute some properties that are used in various places downstream
             "color": indicatorColor(regionJson, indicator_scope)
         });
     });
-    dlist.sort(function(a,b) 
+    dobjects.sort(function(a,b) 
     {
         if (sort_by == "region") {
             return a.name > b.name;
         }
         return a.json[scope] - b.json[scope];
     });
-    return dlist;
+    return dobjects;
 };
 
 function createRankingChart(scope, sort_by, indicator_scope) {
     // sort the data BEFORE creating the ordinal x-axis!
-    var dlist = getSortedObjects(scope, sort_by, indicator_scope)
-    var regKeys = dlist.map(function(entry){return entry.name;});
+    var dobjects = getSortedDataObjects(scope, sort_by, indicator_scope)
+    var regKeys = dobjects.map(function(entry){return entry.name;});
 
     // specify aspect ratio from screen pixels:
     var width = 500;
@@ -161,12 +163,12 @@ function createRankingChart(scope, sort_by, indicator_scope) {
         yThreshold = 1;
     }
     else {
-        yThreshold = dlist[0].json["infections_threshold_by_100k"];
+        yThreshold = dobjects[0].json["infections_threshold_by_100k"];
         // autoscale to include maximum upper bound and threshold*1.1
         yScale.domain([
             0,
             d3.max([
-                d3.max(dlist, function(d) {return d.json[`${scope}_upper`];}),
+                d3.max(dobjects, function(d) {return d.json[`${scope}_upper`];}),
                 yThreshold * 1.1
             ])
         ]);
@@ -205,7 +207,7 @@ function createRankingChart(scope, sort_by, indicator_scope) {
     var bubbleWidth = 30;
     var bubbleHeight = 20;
     svg.selectAll("div")
-        .data(dlist)
+        .data(dobjects)
         .enter().append("rect")
         .attr("class", "bar")
         .attr("x", function(entry){
@@ -224,7 +226,7 @@ function createRankingChart(scope, sort_by, indicator_scope) {
 
     // and add region bubbles
     svg.selectAll("div")
-        .data(dlist)
+        .data(dobjects)
         .enter().append("rect")
         .attr("class", "barBubble")
         .attr("x", function(entry){
@@ -241,7 +243,7 @@ function createRankingChart(scope, sort_by, indicator_scope) {
 
     // and add region labels
     svg.selectAll("div")
-        .data(dlist)
+        .data(dobjects)
         .enter().append("text")
         .text(function(entry) {return entry.name.replace("all", "Ø");})
         .attr("class", "barLabel")
@@ -261,9 +263,9 @@ $(document).ready(function() {
     // the region JSONs are loaded independently!
     var regionPromises = [];
     $.each(REGION_NAMES, function(region, regionTitle) {
-        // first put in placeholders so the order is maintained!
+        // first insert region card placeholders in the correct order!
         $("#regionCards").append(`<div id="card${region}"></div>`);
-        // then fetch content to replace the placeholders (unordered callbacks!)
+        // then fetch content (unordered callbacks!)
         regionPromises.push($.getJSON(`data/de_${region}_summary.json`, function(json) {
             FULL_DATASET[region] = json;
             createRegionCard(region, regionTitle, json);
