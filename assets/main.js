@@ -284,6 +284,47 @@ function createRankingChart(scope, sort_by, indicator_scope) {
         .attr("style", function (entry) {return `stroke: ${entry.color}`;})
         .attr("rx", 10);
 
+    // add trend arrows
+    if (scope == "infections_by_100k") {
+        // first define one arrowhead for each region (because arrowheads can't inherit the colors from the line)
+        svg.selectAll("div")
+            .data(dobjects).enter()
+            .append("svg:marker")
+            .attr("id", function(entry){return `triangle-${entry.name}`;})
+            .attr("refX", 3)
+            .attr("refY", 3)
+            .attr("markerWidth", 6)
+            .attr("markerHeight", 6)
+            .attr("orient", "auto")
+            .append("path")
+            .attr("d", "M 0 0 6 3 0 6")
+            .style("fill", function (entry) {return entry.color;});
+        // then add lines (with custom arrowheads) for each region
+        svg.selectAll("div")
+            .data(dobjects)
+            .enter().append("line")
+            .attr("x1", function(entry){
+                // convert the ordinal x-category to an x-coordinate
+                return bandwidth/2 + xScale(entry.name);
+            })
+            .attr("x2", function(entry){
+                // convert the ordinal x-category to an x-coordinate
+                return bandwidth/2 + xScale(entry.name);
+            })
+            .attr("y1", function (entry) {
+                var shift = (entry.json['r_t'] > 1) ? -bubbleHeight/2 : bubbleHeight/2;
+                return shift + yScale(entry.json[scope]);
+            })
+            .attr("y2", function (entry) {
+                var shift = (entry.json['r_t'] > 1) ? -bubbleHeight/2 : bubbleHeight/2;
+                // scale the arrows by R_t
+                return shift + yScale(entry.json[scope] * entry.json["r_t"]);
+            })
+            .attr("stroke-width", 1)
+            .attr("stroke", function (entry) {return entry.color;})
+            .attr("marker-end", function(entry){return `url(#triangle-${entry.name})`;});
+    }
+
     // and add region labels
     svg.selectAll("div")
         .data(dobjects)
@@ -318,7 +359,6 @@ $(document).ready(function() {
     // wait until data for all regions was loaded before creating the ranking
     $.when.apply($, regionPromises).then(function() {
         // now create the ranking chart
-       // createRankingChart(scope="r_t", sort_by="r_t_threshold_probability", indicator_scope="r_t_threshold_probability");
         createRankingChart(scope="infections_by_100k", sort_by="infections_by_100k", indicator_scope="r_t_threshold_probability");
     });
 
