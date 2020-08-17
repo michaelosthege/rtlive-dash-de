@@ -1,4 +1,4 @@
-regions = {
+var regions = {
     'all': 'Gesamt',
     'BE': 'Berlin',
     'BB': 'Brandenburg',
@@ -17,7 +17,7 @@ regions = {
     'ST': 'Sachsen-Anhalt',
     'TH': 'Thüringen',
 };
-population = {
+var population = {
     'all': 83166711,
     'BB': 2521893,
     'BE': 3669491,
@@ -36,6 +36,7 @@ population = {
     'ST': 2194782,
     'TH': 2133378,
 }
+var FULL_DATASET = {};
 
 function showRegion(region) {
     $('#regionModal').modal('show');
@@ -43,17 +44,17 @@ function showRegion(region) {
     $('#regionModalImage').attr('src', `data/de_${region}.png`)
 };
 
-function indicatorColor(regionJson) {
+function indicatorColor(regionJson, indicator_scope) {
     var color = "green";
-    if (regionJson['r_t_threshold_probability'] > 0.25) {
+    if (regionJson[indicator_scope] > 0.25) {
         // grey for 25-50 % probability
         color = "grey";
     }
-    if (regionJson['r_t_threshold_probability'] > 0.5) {
+    if (regionJson[indicator_scope] > 0.5) {
         // orange for 50-75 % probability
         color = "orange";
     }
-    if (regionJson['r_t_threshold_probability'] > 0.75) {
+    if (regionJson[indicator_scope] > 0.75) {
         // grey for >75 % probability
         color = "red";
     }
@@ -135,12 +136,13 @@ function createRegionCard(region, regionTitle, json) {
     $(`#card${region}`).replaceWith(html);
 };
 
-function datasetToSortedObjects(dataset, scope, sort_by) {
+function getSortedObjects(scope, sort_by, indicator_scope) {
     var dlist = [];
-    $.each(dataset, function (region, regionJson) {
+    $.each(FULL_DATASET, function (region, regionJson) {
         dlist.push({
             "name": region.replace("all", "Ø"),
-            "json": regionJson
+            "json": regionJson,
+            "color": indicatorColor(regionJson, indicator_scope)
         });
     });
     dlist.sort(function(a,b) 
@@ -153,9 +155,9 @@ function datasetToSortedObjects(dataset, scope, sort_by) {
     return dlist;
 };
 
-function createRankingChart(dataset, scope, sort_by) {
+function createRankingChart(scope, sort_by, indicator_scope) {
     // sort the data BEFORE creating the ordinal x-axis!
-    var dlist = datasetToSortedObjects(dataset, scope, sort_by)
+    var dlist = getSortedObjects(scope, sort_by, indicator_scope)
     var regKeys = dlist.map(function(entry){return entry.name;});
 
     // specify aspect ratio from screen pixels:
@@ -171,7 +173,23 @@ function createRankingChart(dataset, scope, sort_by) {
     // create an ordinal x dimension with entries for all the regions
     var xScale = d3.scaleBand().domain(regKeys).range([margin.left, width - margin.right]);
     // and a continuous y dimension for Rt
-    var yScale = d3.scaleLinear().domain([0, 2]).range([height - margin.bottom, margin.top]);
+    var yScale = d3.scaleLinear().range([height - margin.bottom, margin.top]);
+    var yThreshold = null;
+    if (scope == "r_t"){
+        yScale.domain([0, 2]);
+        yThreshold = 1;
+    }
+    else {
+        yThreshold = dlist[0].json["infections_threshold_by_100k"];
+        // autoscale to include maximum upper bound and threshold*1.1
+        yScale.domain([
+            0,
+            d3.max([
+                d3.max(dlist, function(d) {return d.json[`${scope}_upper`];}),
+                yThreshold * 1.1
+            ])
+        ]);
+    }
 
     // draw x-axis spine
     //svg.append("g")
@@ -187,16 +205,18 @@ function createRankingChart(dataset, scope, sort_by) {
     // draw horizontal grid lines
     svg.selectAll("line.horizontalGrid").data(yScale.ticks(10)).enter()
         .append("line")
-        .attr("class", function(d) {
-            if (d == 1){
-                return "horizontalGrid gridlineDark"
-            }
-            return "horizontalGrid";
-        })
+        .attr("class", "horizontalGrid")
         .attr("x1", margin.right)
         .attr("x2", width)
         .attr("y1", function(d){ return yScale(d);})
         .attr("y2", function(d){ return yScale(d);});
+    // draw threshold line
+    svg.append("line")
+        .attr("class", "horizontalGrid gridlineDark")
+        .attr("x1", margin.right)
+        .attr("x2", width)
+        .attr("y1", yScale(yThreshold))
+        .attr("y2", yScale(yThreshold));
 
     // draw uncertainty bars
     var bandwidth = xScale.bandwidth();
@@ -218,7 +238,7 @@ function createRankingChart(dataset, scope, sort_by) {
         .attr("height", function (entry) {
             return height - yScale(entry.json[`${scope}_upper`] - entry.json[`${scope}_lower`]);
         })
-        .attr("style", function (entry) {return `fill: ${indicatorColor(entry.json)}`;})
+        .attr("style", function (entry) {return `fill: ${entry.color}`;})
         .attr("rx", 5);
 
     // and add region bubbles
@@ -235,7 +255,7 @@ function createRankingChart(dataset, scope, sort_by) {
         })
         .attr("width", bubbleWidth)
         .attr("height", bubbleHeight)
-        .attr("style", function (entry) {return `stroke: ${indicatorColor(entry.json)}`;})
+        .attr("style", function (entry) {return `stroke: ${entry.color}`;})
         .attr("rx", 10);
 
     // and add region labels
@@ -251,7 +271,7 @@ function createRankingChart(dataset, scope, sort_by) {
         .attr("y", function (entry) {
             return yScale(entry.json[scope]);
         })
-        .attr("style", function (entry) {return `fill: ${indicatorColor(entry.json)}`;})
+        .attr("style", function (entry) {return `fill: ${entry.color}`;})
         .attr("dy", "0.35em");
 
 };
@@ -259,13 +279,12 @@ function createRankingChart(dataset, scope, sort_by) {
 $(document).ready(function() {
     // the region JSONs are loaded independently!
     var regionPromises = [];
-    var fullDataset = {};
     $.each(regions, function(region, regionTitle) {
         // first put in placeholders so the order is maintained!
         $("#regionCards").append(`<div id="card${region}"></div>`);
         // then fetch content to replace the placeholders (unordered callbacks!)
         regionPromises.push($.getJSON(`data/de_${region}_summary.json`, function(json) {
-            fullDataset[region] = json;
+            FULL_DATASET[region] = json;
             createRegionCard(region, regionTitle, json);
         }));
     });
@@ -273,7 +292,8 @@ $(document).ready(function() {
     // wait until data for all regions was loaded before creating the ranking
     $.when.apply($, regionPromises).then(function() {
         // now create the ranking chart
-        createRankingChart(fullDataset, scope="r_t", sort_by="r_t_threshold_probability");
+        createRankingChart(scope="r_t", sort_by="r_t_threshold_probability", indicator_scope="r_t_threshold_probability");
+        createRankingChart(scope="infections_by_100k", sort_by="infections_by_100k", indicator_scope="r_t_threshold_probability");
     });
 
     // end of document-ready
