@@ -166,14 +166,10 @@ function createRankingChart(scope, sort_by, indicator_scope) {
         yThreshold = 1;
     }
     else {
-        yThreshold = dobjects[0].json["infections_threshold_by_100k"];
         // autoscale to include maximum upper bound and threshold*1.1
         yScale.domain([
             0,
-            d3.max([
-                d3.max(dobjects, function(d) {return d.json[`${scope}_upper`];}),
-                yThreshold * 1.1
-            ])
+            d3.max(dobjects, function(d) {return d.json[`${scope}_upper`];})
         ]);
     }
 
@@ -239,12 +235,14 @@ function createRankingChart(scope, sort_by, indicator_scope) {
         .attr("y1", function(d){ return yScale(d);})
         .attr("y2", function(d){ return yScale(d);});
     // draw threshold line
-    svg.append("line")
+    if (yThreshold != null){
+        svg.append("line")
         .attr("class", "horizontalGrid gridlineDark")
         .attr("x1", margin.right)
         .attr("x2", width)
         .attr("y1", yScale(yThreshold))
         .attr("y2", yScale(yThreshold));
+    }
 
     // draw uncertainty bars
     var bandwidth = xScale.bandwidth();
