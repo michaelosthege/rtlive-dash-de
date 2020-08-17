@@ -17,25 +17,6 @@ var regions = {
     'ST': 'Sachsen-Anhalt',
     'TH': 'Thüringen',
 };
-var population = {
-    'all': 83166711,
-    'BB': 2521893,
-    'BE': 3669491,
-    'BW': 11100394,
-    'BY': 13124737,
-    'HB': 681202,
-    'HE': 6288080,
-    'HH': 1847253,
-    'MV': 1608138,
-    'NI': 7993608,
-    'NW': 17947221,
-    'RP': 4093903,
-    'SH': 2903773,
-    'SL': 986887,
-    'SN': 4071971,
-    'ST': 2194782,
-    'TH': 2133378,
-}
 var FULL_DATASET = {};
 
 function showRegion(region) {
