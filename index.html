@@ -46,7 +46,7 @@
     </div>
   </header>
 
-  <main role="main">
+  <main role="main" class="bg-light">
 
     <!-- FAQ Modal -->
     <div class="modal fade" id="faqModal" tabindex="-1" role="dialog" aria-labelledby="faqModalTitle" style="display: none;" aria-hidden="true">
@@ -102,7 +102,7 @@
 
             <h3>Was bedeuten die hoch- und tiefgestellten Zahlen?</h3>
             <p>
-              Die große Zahl beschreibt den Mittelwert, während die kleinen Zahlen den Bereich angeben, in dem unsere Analyse den Wert mit 90%iger Wahrscheinlichkeit vermutet.
+              Die große Zahl beschreibt den Medianwert, während die kleinen Zahlen den Bereich angeben, in dem unsere Analyse den Wert mit 90%iger Wahrscheinlichkeit vermutet.
               X = 0.94
               <img src="assets/interval.png" class="interval" />
               <span class="subsup">
@@ -204,7 +204,7 @@
         <label><strong>Ansicht:</strong></label><br/>
         <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
           <label id="btnRank_r_t" class="btn btn-light" onclick="createRankingChart(scope='r_t', sort_by='r_t_threshold_probability', indicator_scope='r_t_threshold_probability')">
-            <input type="radio" name="options" id="option1" checked> Reproduktionszahl
+            <input type="radio" name="options" id="option1"> Reproduktionszahl
           </label>
           <label id="btnRank_infections_by_100k" class="btn btn-light" onclick="createRankingChart(scope='infections_by_100k', sort_by='infections_by_100k', indicator_scope='r_t_threshold_probability')">
             <input type="radio" name="options" id="option2"> Neuinfektionsrate
@@ -214,6 +214,16 @@
       </div>
     </section>
 
+    <section class="container">
+      <div class="bs-callout bs-callout-warning">
+        <h5>Aktuelles</h5>
+        <p>
+          Ein Skalierungsfaktor für die Neuinfektionskurven wurde kürzlich geändert, um die Dunkelziffer beim Testen besser zu berücksichtigen.
+          Dies hat keine Auswirkungen auf die R<sub>t</sub>-Kurven, sondern nur auf die Skalierung der Neuinfektionsraten in der Detail-Ansicht, bzw. dem Ranking.
+        </p>
+      </div>
+    </section>
+    
     <!-- Region thumbnail gallery -->
     <div class="album py-5 bg-light" style="padding-top: 0rem !important;">
       <div class="container">
