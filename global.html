@@ -40,7 +40,7 @@
           <strong>R<sub style="margin-right: 0.1em;">t</sub>live.de</strong>
         </div>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#faqModal">
-          Fragen und Antworten
+          FAQ
         </button>
       </div>
     </div>
@@ -205,10 +205,10 @@
       <div class="container">
         <label><strong>View:</strong></label><br/>
         <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
-          <label id="btnRank_r_t" class="btn btn-light" onclick="createRankingChart(scope='r_t', sort_by='r_t_threshold_probability', indicator_scope='r_t_threshold_probability')">
+          <label id="btnRank_r_t" class="btn btn-light" onclick="setFilter(CURRENT_FILTER, 'r_t')">
             <input type="radio" name="options" id="option1"> Reproductive number
           </label>
-          <label id="btnRank_infections_by_100k" class="btn btn-light" onclick="createRankingChart(scope='infections_by_100k', sort_by='infections_by_100k', indicator_scope='r_t_threshold_probability')">
+          <label id="btnRank_infections_by_100k" class="btn btn-light" onclick="setFilter(CURRENT_FILTER, 'infections_by_100k')">
             <input type="radio" name="options" id="option2"> Infection rate
           </label>
         </div>
@@ -231,8 +231,8 @@
       
       <div class="container">
         <div class="row">
-          <div id="flagBar" class="btn-group btn-group-md btn-group-toggle mx-auto" data-toggle="buttons">
-            <label class="btn btn-light focus active" style="font-size: larger;" onclick="setFilter('all')">
+          <div id="flagBar" class="btn-group btn-group-justified mx-auto btn-group-toggle" data-toggle="buttons" style="margin-bottom: 30px; flex-wrap: wrap;">
+            <label id="btnFilter_all" class="btn btn-light focus active" style="font-size: larger;" onclick="setFilter('all', CURRENT_SCOPE)">
               <input type="radio" name="options"> all
             </label>
           </div>

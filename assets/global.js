@@ -1,17 +1,37 @@
 var INDEX = {};
 var FULL_DATASET = {};
+var CURRENT_FILTER = null;
+var CURRENT_SCOPE = null;
 
 
-function getSortedDataObjects(scope, sort_by, indicator_scope) {
+function getSortedDataObjects(filterSetting, scope, indicator_scope="r_t_threshold_probability") {
+    var sort_by = null;
+    if (scope == "infections_by_100k") {
+        sort_by = "infections_by_100k";
+    }
+    else if (scope == "r_t") {
+        sort_by = "r_t_threshold_probability";
+    }
     var dobjects = [];
     // convert dict of region jsons to list of objects:
-    $.each(FULL_DATASET, function (region, regionJson) {
-        dobjects.push({
-            "name": region.replace("all", "Ø"),
-            "json": regionJson,
-            // pre-compute some properties that are used in various places downstream
-            "color": indicatorColor(regionJson, indicator_scope)
-        });
+    $.each(FULL_DATASET, function (key, regionJson) {
+        var ca2 = key.substr(0, 2);
+        var region = key.substr(3);
+        // pre-compute some properties that are used in various places downstream
+        var color = indicatorColor(regionJson, indicator_scope)
+        if (filterSetting == "all" && region == "all") {
+            dobjects.push({
+                "name": flagEmoji(ca2),
+                "json": regionJson,                
+                "color": color
+            });
+        } else if (ca2 == filterSetting) {
+            dobjects.push({
+                "name": region.replace("all", "Ø"),
+                "json": regionJson,
+                "color": color
+            });
+        }
     });
     dobjects.sort(function(a,b) 
     {
@@ -119,11 +139,9 @@ function createRegionCard(country_alpha2, countryName, region, regionName, date,
     $(`#card_${country_alpha2}_${region}`).replaceWith(html);
 };
 
-function createRankingChart(scope, sort_by, indicator_scope) {
-    // select the corresponding button
-    $(`#btnRank_${scope}`).button('toggle');
+function createRankingChart(filterSetting, scope, sort_by, indicator_scope) {
     // sort the data BEFORE creating the ordinal x-axis!
-    var dobjects = getSortedDataObjects(scope, sort_by, indicator_scope)
+    var dobjects = getSortedDataObjects(filterSetting, scope, sort_by, indicator_scope)
     var regKeys = dobjects.map(function(entry){return entry.name;});
 
     // specify aspect ratio from screen pixels:
@@ -324,7 +342,14 @@ function createRankingChart(scope, sort_by, indicator_scope) {
 
 };
 
-function setFilter(selected) {
+function setFilter(selected, scope) {
+    CURRENT_FILTER = selected;
+    CURRENT_SCOPE = scope;
+    // select the corresponding button
+    $(`#btnRank_${scope}`).button('toggle');
+    $(`#btnFilter_${selected}`).button('toggle');
+
+    createRankingChart(filterSetting=CURRENT_FILTER, scope=CURRENT_SCOPE);
     if (selected == "all") {
         // show all nation thumbs, but no headers
         $.each(INDEX, function(country_alpha2, country) {
@@ -371,7 +396,7 @@ $(document).ready(function() {
             var lastDate = country["dates"].slice(-1);
             // add to flag selector
             $("#flagBar").append(`
-            <label class="btn btn-light" style="font-size:x-large" onclick="setFilter('${country_alpha2}')">
+            <label id="btnFilter_${country_alpha2}" class="btn btn-light" style="font-size:x-large" onclick="setFilter('${country_alpha2}', CURRENT_SCOPE)">
                 <input type="radio" name="options" id="flag_${country_alpha2}">${flagEmoji(country_alpha2)}
             </label>
             `);
@@ -396,8 +421,7 @@ $(document).ready(function() {
         // wait until data for all regions was loaded before creating the ranking
         $.when.apply($, regionPromises).then(function() {
             // now create the ranking chart
-            createRankingChart(scope="infections_by_100k", sort_by="infections_by_100k", indicator_scope="r_t_threshold_probability");
-            setFilter("all");
+            setFilter("all", "infections_by_100k");
         });
     });
     // end of document-ready
