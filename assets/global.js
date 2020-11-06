@@ -85,7 +85,7 @@ function createRegionCard(country_alpha2, countryName, region, regionName, date,
 
     // generate the HTML markup for the region-specific card with metadata
     var html = `
-    <div class="col-md-4">
+    <div id="card_${country_alpha2}_${region}" class="col-md-4">
         <div class="card mb-4 shadow-sm">
         <img width="100%" style="cursor: pointer;" src="data/${country_alpha2}/${date}/${region}/thumb.png" onclick="showRegion('${country_alpha2}', '${countryName}', '${region}', '${regionName}', '${date}')"></img>
         <div class="detailsLink">
@@ -194,7 +194,7 @@ function createRankingChart(scope, sort_by, indicator_scope) {
                 .attr('font-size', 'x-small')
                 .attr('text-anchor', 'middle')
                 .attr('transform', 'rotate(-90)')
-                .text("tägliche Neuinfektionen")
+                .text("daily new infections")
             ;
             svg.append('g')
                 .attr('transform', `translate(${axisLabelX}, ${axisLabelY})`)
@@ -202,7 +202,7 @@ function createRankingChart(scope, sort_by, indicator_scope) {
                 .attr('font-size', 'x-small')
                 .attr('text-anchor', 'middle')
                 .attr('transform', 'rotate(-90)')
-                .text("pro 100,000 Einwohner")
+                .text("per 100,000 population")
             ;
             break;
     }
@@ -326,26 +326,40 @@ function createRankingChart(scope, sort_by, indicator_scope) {
 
 function setFilter(selected) {
     if (selected == "all") {
-        // show only the "all" region thumbs
+        // show all nation thumbs, but no headers
+        $.each(INDEX, function(country_alpha2, country) {
+            $(`#country_header_${country_alpha2}`).hide();
+            // show "all" region but hide others
+            $.each(country["regions"], function(r, rm) {
+                var region = rm[0];
+                if (region == "all") {
+                    $(`#card_${country_alpha2}_${region}`).show();
+                }
+                else {
+                    $(`#card_${country_alpha2}_${region}`).hide();
+                }
+            });
+        });
     }
     else {
-        // hide all country rows except the selected
+        // show all regions of only one country (with header)
         $.each(INDEX, function(country_alpha2, country) {
             if (country_alpha2 == selected) {
-                $(`#cards_${country_alpha2}`).show();
+                $(`#country_header_${country_alpha2}`).show();
+                $.each(country["regions"], function(r, rm) {
+                    $(`#card_${country_alpha2}_${rm[0]}`).show();
+                });
             } else {
-                $(`#cards_${country_alpha2}`).hide();
+                $(`#country_header_${country_alpha2}`).hide();
+                $.each(country["regions"], function(r, rm) {
+                    $(`#card_${country_alpha2}_${rm[0]}`).hide();
+                });
             }
         });
     }
-    
 };
 
 $(document).ready(function() {
-
-    // TODO: split loading of dataset and creation of elements
-    // TODO: when "all" is selected, show only the "all" regions of all countries - without country-headlines
-
     // first, we must download the index file that tells us which countries & regions there are
     $.getJSON("data/index.json", function(json) {
         INDEX = json;
@@ -361,18 +375,16 @@ $(document).ready(function() {
                 <input type="radio" name="options" id="flag_${country_alpha2}">${flagEmoji(country_alpha2)}
             </label>
             `);
-            // create country row
+            // create country header with full width
             $("#thumbnailGallery").append(`
-            <div class="row" id="cards_${country_alpha2}">
-                <h3 class="col-md-12" id="country_section_${country_alpha2}">${flagEmoji(country_alpha2)} ${countryName}</h3>
-            </div>
+            <h3 id="country_header_${country_alpha2}" class="col-md-12">${flagEmoji(country_alpha2)} ${countryName}</h3>
             `);
             // iterate the regions to download their data and create thumbnails
             $.each(country["regions"], function(r, rm) {
                 var region = rm[0];
                 var regionName = rm[1];
                 // first insert region card placeholders in the correct order!
-                $(`#cards_${country_alpha2}`).append(`<div id="card_${country_alpha2}_${region}"></div>`);
+                $(`#thumbnailGallery`).append(`<div id="card_${country_alpha2}_${region}"></div>`);
                 // then fetch content (unordered callbacks!)
                 regionPromises.push($.getJSON(`data/${country_alpha2}/${lastDate}/${region}/summary.json`, function(regionJson) {
                     FULL_DATASET[`${country_alpha2}_${region}`] = regionJson;
@@ -385,6 +397,7 @@ $(document).ready(function() {
         $.when.apply($, regionPromises).then(function() {
             // now create the ranking chart
             createRankingChart(scope="infections_by_100k", sort_by="infections_by_100k", indicator_scope="r_t_threshold_probability");
+            setFilter("all");
         });
     });
     // end of document-ready
