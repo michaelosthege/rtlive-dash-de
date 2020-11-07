@@ -178,7 +178,7 @@
             
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
@@ -216,15 +216,19 @@
       </div>
     </section>
 
-    <!-- <section class="container">
+    <section class="container">
       <div class="bs-callout bs-callout-warning">
-        <h5>Hinweis zu Hamburg</h5>
+        <h5>Attention</h5>
         <p>
-          Die uns derzeit vorliegenden Zahlen durchgeführter Test in Hamburg (HH) sind möglicherweise unvollständig.
-          Dies führt dazu, dass unsere Analyse die Neuinfektionsrate möglicherweise zu hoch einschätzt.
+          As you can see we are running the analysis on a large number of countries/regions.
+          To ensure a high quality of the results we depend on local domain expertise.
+          </br>
+          If you notice data quality issues (e.g. outliers), please file a bug report at <a href="https://github.com/rtcovidlive/rtlive-global">github.com/rtcovidlive/rtlive-global</a>
+          </br>
+          To add support for your country, please open a pull request!
         </p>
       </div>
-    </section> -->
+    </section>
     
     <!-- Region thumbnail gallery -->
     <div class="album py-5 bg-light" style="padding-top: 0rem !important;">
@@ -248,7 +252,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="regionModalTitle">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Schließen">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
           </div>
@@ -256,7 +260,7 @@
             <img id="regionModalImage" width="100%" src=""/>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
@@ -268,22 +272,22 @@
     <div class="container">
       <div class="row">
         <div class="col-md-5">
-          <h5 style="color:white">Referenzen</h5>
+          <h5 style="color:white">References</h5>
           <ul class="list-unstyled text-small">
-            <li class="text-muted">Diese Analyse basiert auf <a href="https://rt.live">rt.live</a>, einem Projekt von Kevin Systrom, Mike Krieger, Thomas Vladek und weiteren.</li>
+            <li class="text-muted">This analysis is based on <a href="https://rt.live">rt.live</a>, a project by Kevin Systrom, Mike Krieger, Thomas Vladek and more.</li>
             <li class="text-muted">
-              Für die Anwendung auf Deutschland wurde das Modell von <a href="https://www.fz-juelich.de/SharedDocs/Personen/IBG/IBG-1/DE/Research_groups/bioproc/helleckes.html">Laura Helleckes</a> und <a href="https://www.fz-juelich.de/SharedDocs/Personen/IBG/IBG-1/DE/Research_groups/bioproc/osthege.html">Michael Osthege</a> um eine Vorhersage der täglich durchgeführten Tests erweitert.
+              For code, a list of contributors, bugs and contributions go to <a href="https://github.com/rtcovidlive/rtlive-global">github.com/rtcovidlive/rtlive-global</a>.
             </br>
-              Für Quellcode siehe <a href="https://github.com/rtcovidlive/rtlive-global">github.com/rtcovidlive/rtlive-global</a>.
+              The site is run by <a href="https://www.fz-juelich.de/SharedDocs/Personen/IBG/IBG-1/DE/Research_groups/bioproc/helleckes.html">Laura Helleckes</a> and <a href="https://www.fz-juelich.de/SharedDocs/Personen/IBG/IBG-1/DE/Research_groups/bioproc/osthege.html">Michael Osthege</a>.
             </li>
             </br>
-            <li class="text-muted">Datenverarbeitung: <a href="https://docs.pymc.io/">PyMC3</a>, <a href="https://arviz-devs.github.io/arviz">ArviZ</a>, <a href="https://pandas.pydata.org/">pandas</a>, <a href="https://facebook.github.io/prophet/">fbprophet</a></li>
-            <li class="text-muted">Visualisierung: <a href="https://matplotlib.org/">matplotlib</a>, <a href="https://d3js.org/">d3.js</a></li>
-            <li class="text-muted">Webseite: <a href="https://getbootstrap.com/">Bootstrap</a>, <a href="https://momentjs.com/">Moment.js</a></li>
+            <li class="text-muted">Modeling: <a href="https://docs.pymc.io/">PyMC3</a>, <a href="https://arviz-devs.github.io/arviz">ArviZ</a>, <a href="https://pandas.pydata.org/">pandas</a>, <a href="https://facebook.github.io/prophet/">fbprophet</a></li>
+            <li class="text-muted">Visualization: <a href="https://matplotlib.org/">matplotlib</a>, <a href="https://d3js.org/">d3.js</a></li>
+            <li class="text-muted">Website: <a href="https://getbootstrap.com/">Bootstrap</a>, <a href="https://momentjs.com/">Moment.js</a></li>
           </ul>
         </div>
         <div class="col-md-3">
-          <h5 style="color:white">Kontakt</h5>
+          <h5 style="color:white">Contact</h5>
           <ul class="list-unstyled text-small">
             <li><a class="text-muted" href="mailto:m.osthege@fz-juelich.de?subject=Rtlive">Michael Osthege</a></li>
             <li><a class="text-muted" href="https://www.fz-juelich.de/ibg/ibg-1/DE/Home/home_node.html">IBG-1: Biotechnologie</a></li>
@@ -291,7 +295,7 @@
             <li><a class="text-muted">52428 Jülich</a></li>
           </ul>
           <a href="impressum.html">Impressum</a><br/>
-          <a href="datenschutz.html">Datenschutzerklärung</a>
+          <a href="datenschutz.html">Privacy Policy</a>
         </div>
         <div class="col-md-4">
           <a href="https://fz-juelich.de/">
