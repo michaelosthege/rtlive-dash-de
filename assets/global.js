@@ -13,25 +13,31 @@ function getSortedDataObjects(filterSetting, scope, indicator_scope="r_t_thresho
         sort_by = "r_t_threshold_probability";
     }
     var dobjects = [];
-    // convert dict of region jsons to list of objects:
-    $.each(FULL_DATASET, function (key, regionJson) {
-        var ca2 = key.substr(0, 2);
-        var region = key.substr(3);
-        // pre-compute some properties that are used in various places downstream
-        var color = indicatorColor(regionJson, indicator_scope)
-        if (filterSetting == "all" && region == "all") {
-            dobjects.push({
-                "name": flagEmoji(ca2),
-                "json": regionJson,                
-                "color": color
-            });
-        } else if (ca2 == filterSetting) {
-            dobjects.push({
-                "name": region.replace("all", "Ø"),
-                "json": regionJson,
-                "color": color
-            });
-        }
+    // build list of objects according to filter settings
+    $.each(INDEX, function(ca2, country) {
+        $.each(country["regions"], function(r, reg){
+            var region_code = reg[0];
+            var region_name = reg[1];
+            var region_short_name = reg[2];
+            var regionJson = FULL_DATASET[`${ca2}_${region_code}`];
+            // pre-compute some properties that are used in various places downstream
+            var color = indicatorColor(regionJson, indicator_scope)
+            if (filterSetting == "all" && region_code == "all") {
+                dobjects.push({
+                    "name": flagEmoji(ca2),
+                    "short_name": flagEmoji(ca2),
+                    "json": regionJson,
+                    "color": color
+                });
+            } else if (ca2 == filterSetting) {
+                dobjects.push({
+                    "name": region_name.replace("all", "Ø"),
+                    "short_name": region_short_name.replace("all", "Ø"),
+                    "json": regionJson,
+                    "color": color
+                });
+            }
+        });
     });
     dobjects.sort(function(a,b) 
     {
@@ -75,7 +81,7 @@ function flagEmoji(country_alpha2) {
    return country_alpha2.toUpperCase().replace(/./g, char => String.fromCodePoint(char.charCodeAt(0)+127397) );
 }
 
-function createRegionCard(country_alpha2, countryName, region, regionName, date, json) {
+function createRegionCard(country_alpha2, countryName, region, regionName, regionShortName, date, json) {
     // unpack JSON information into local variables (easier for formatting)
     var last_updated = moment(json['last_updated']).locale('en').fromNow();
 
@@ -114,7 +120,7 @@ function createRegionCard(country_alpha2, countryName, region, regionName, date,
         </div>
         
         <div class="card-body">
-            <label class="font-weight-bold">${regionName} (${region.replace("all", "Ø")})</label>
+            <label class="font-weight-bold">${regionName} (${regionShortName.replace("all", "Ø")})</label>
             <p class="card-text">
                 <span data-toggle="tooltip" data-placement="top" title="${rtTooltip}">
                     R = ${r_t}
@@ -328,7 +334,7 @@ function createRankingChart(filterSetting, scope, sort_by, indicator_scope) {
     svg.selectAll("div")
         .data(dobjects)
         .enter().append("text")
-        .text(function(entry) {return entry.name.replace("all", "Ø");})
+        .text(function(entry) {return entry.short_name.replace("all", "Ø");})
         .attr("class", "barLabel")
         .attr("x", function(entry){
             // convert the ordinal x-category to an x-coordinate
@@ -408,12 +414,13 @@ $(document).ready(function() {
             $.each(country["regions"], function(r, rm) {
                 var region = rm[0];
                 var regionName = rm[1];
+                var regionShortName = rm[2];
                 // first insert region card placeholders in the correct order!
                 $(`#thumbnailGallery`).append(`<div id="card_${country_alpha2}_${region}"></div>`);
                 // then fetch content (unordered callbacks!)
                 regionPromises.push($.getJSON(`data/${country_alpha2}/${lastDate}/${region}/summary.json`, function(regionJson) {
                     FULL_DATASET[`${country_alpha2}_${region}`] = regionJson;
-                    createRegionCard(country_alpha2, countryName, region, regionName, lastDate, regionJson);
+                    createRegionCard(country_alpha2, countryName, region, regionName, regionShortName, lastDate, regionJson);
                 }));
             });
         });
