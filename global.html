@@ -59,9 +59,9 @@
             </button>
           </div>
           <div class="modal-body">
-            <h3>What is the R<sub>t</sub> rate?</h3>
+            <h3>What is R<sub>t</sub>?</h3>
             <p>
-              The R<sub>t</sub> rate, also known as the reproduction rate, describes how many
+              The R<sub>t</sub>, also known as the reproduction rate, describes how many
               people an infected person ends up infecting.
               Together with the number of new infections, the reproduction rate R<sub>t</sub> is
               an important figure to follow to understand how fast the disease spreads.
@@ -91,8 +91,7 @@
                                 We also collect daily tests results by region. They are kindly
                                 provided to us by the RKI. A summary of these figures is also
                                 published by the RKI in its
-                  <a href="https://ars.rki.de/Content/COVID19/Main.aspx">weekly report</a>
-                                .
+                  <a href="https://ars.rki.de/Content/COVID19/Main.aspx">weekly report.</a>
                   <br>
                                 The number of tests carried out is difficult to analyze in the
                                 current reporting system. Thus, we currently use the data compiled
@@ -117,15 +116,24 @@
               </li>
               <li>
                 <p>
-                  <b>United States and all other countries</b>: All the data come from
-                  <a href="https://www.covidtracking.org">covidtracking.org</a> and <a
-                        href="https://www.ourworldindata.org">ourworldindata.org</a>. Visit
-                  <a href="https://github.com/rtcovidlive/rtlive-global">
-                    github.com/rtcovidlive/rtlive-global
-                  </a> for all the data sources and a detailed explanation of how the model is programmed
+                  <b>United States</b>: All the data come from
+                  <a href="https://www.covidtracking.org">covidtracking.org</a>.
+                </p>
+              </li>
+              <li>
+                <p>
+                  <b>All other countries</b>: Data come from
+                  <a href="https://www.ourworldindata.org">ourworldindata.org</a>.
                 </p>
               </li>
             </ul>
+            <p>
+              Visit
+              <a href="https://github.com/rtcovidlive/rtlive-global">
+                github.com/rtcovidlive/rtlive-global
+              </a>
+              for all the data sources and a detailed explanation of how the model is programmed.
+            </p>
 
             <h3>What do the superscript and subscript numbers mean?</h3>
             <p>
@@ -177,23 +185,25 @@
               available within a delay for all countries. We therefore use
               <span class="font-italic"><a href="https://facebook.github.io/prophet/"
               >Facebook's Prophet</a></span>
-              library to predict the number of tests that will be performed. Our forecast is
-              shown in the detailed view, but, in a nutshell, the older the latest test numbers
-              are, the less reliable this forecast becomes.
+              library to predict the number of tests that will be performed.
+              <br>
+              Our forecast is shown in the detailed views, but, in a nutshell, the older the
+              latest test numbers are, the less reliable this forecast becomes.
               <br>
               No model can exactly describe reality and the more we learn about the pandemic,
-              the more "flaws" in the model we get to know. The model also makes assumptions that
-              are informed by literature sources, but do not necessarily apply exactly to every
+              the more "flaws" in the model we get to discover. The model also makes assumptions
+              that are informed by literature sources, but do not necessarily apply exactly to every
               countries we model here. In addition, these literature sources are only snapshots
               that apply to a greater or lesser extent in the course of the pandemic.
             </p>
-              Yet, two probability distributions are key to the model:
+            <p>
+              Importantly, two probability distributions are key to the model:
+            </p>
             <ul>
               <li>The time lag between an infection and an observed positive test.</li>
               <li>The time lag between the infection of a person A and the infection of another
                   person B by this person A.</li>
             </ul>
-            <br>
 
             <h3>Who is behind this page?</h3>
             <p>
@@ -202,15 +212,18 @@
                 Laura Helleckes
               </a> and
               <a href="https://www.fz-juelich.de/SharedDocs/Personen/IBG/IBG-1/DE/Research_groups/bioproc/osthege.html">
-                Michael Osthege
-              </a>, are doctoral students at the Institute for
+                Michael Osthege,
+              </a> are doctoral students at the Institute for
               Biotechnology (IBG-1) at the Jülich Research Center. We have adapted the original
               <a href="https://github.com/rtcovidlive/covid-model">open-source model</a> for
-              Germany. If you have any questions or comments, please
-              contact us by
+              Germany. But we're not alone here! As you'll see at
+              <a href="https://github.com/rtcovidlive/rtlive-global">
+                github.com/rtcovidlive/rtlive-global,
+              </a> there are many other people, who made a contribution to this project. If
+              you have any questions or comments, please contact us by
               <a href="mailto:m.osthege@fz-juelich.de;l.helleckes@fz-juelich.de?subject=Rtlive">
-                email
-              </a>.
+                email.
+              </a>
             </p>
 
           </div>
