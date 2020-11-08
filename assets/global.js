@@ -361,7 +361,10 @@ function setFilter(selected, scope) {
     $(`#btnRank_${scope}`).button('toggle');
     $(`#btnFilter_${selected}`).button('toggle');
 
-    createRankingChart(filterSetting=CURRENT_FILTER, scope=CURRENT_SCOPE);
+    createRankingChart(
+        filterSetting=(selected != "all" && INDEX[selected]["regions"].length <= 1) ? "all" : CURRENT_FILTER,
+        scope=CURRENT_SCOPE
+    );
     if (selected == "all") {
         // show all nation thumbs, but no headers
         $.each(INDEX, function(country_alpha2, country) {
