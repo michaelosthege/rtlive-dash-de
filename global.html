@@ -59,81 +59,105 @@
             </button>
           </div>
           <div class="modal-body">
-            <h3>Was ist der R<sub>t</sub>-Wert?</h3>
+            <h3>What is the R<sub>t</sub> rate?</h3>
             <p>
-              Der R-Wert, auch Reproduktionszahl genannt, beschreibt, wie viele Menschen eine infizierte Person im Mittel ansteckt.
-              Zusammen mit der Anzahl der täglichen Neuinfektionen ist die zeitabhängige Reproduktionszahl R<sub>t</sub> ein wichtiges Maß dafür, wie schnell sich die Krankheit aktuell ausbreitet.
-              <br/>
-              Man unterscheidet drei Fälle:
+              The R<sub>t</sub> rate, also known as the reproduction rate, describes how many
+              people an infected person ends up infecting.
+              Together with the number of new infections, the reproduction rate R<sub>t</sub> is
+              an important figure to follow to understand how fast the disease spreads.
+              <br>
+              We can distinguish three different scenarios:
             </p>
               <ul>
-                <li>R<sub>t</sub>&gt;1: die Anzahl der Neuinfektionen steigt</li>
-                <li>R<sub>t</sub>=1: die Anzahl der Neuinfektionen bleibt gleich</li>
-                <li>R<sub>t</sub>&lt;1: die Anzahl der Neuinfektionen sinkt</li>
+                <li>R<sub>t</sub>&gt;1: the number of new infections increases</li>
+                <li>R<sub>t</sub>=1: the number of new infections is stable</li>
+                <li>R<sub>t</sub>&lt;1: the number of new infections decreases</li>
               </ul>
             <p>
-              Für weitere Informationen siehe auch in den <a href="https://www.rki.de/SharedDocs/FAQ/NCOV2019/gesamt.html">FAQ des Robert&nbsp;Koch-Instituts</a>.
+              For more information, you can take a look at <a
+                    href="https://en.wikipedia.org/wiki/Basic_reproduction_number">
+              this page</a> to begin with.
             </p>
 
-            <h3>Woher kommen die Daten?</h3>
-            <p>
-              Die Zahlen der Positiv-Tests beziehen wir vom offiziellen <a href="https://experience.arcgis.com/experience/478220a4c454480e823b17327b2bf1d4">Dashboard</a> des RKIs, bzw. dem dahinterliegenden ArcGIS-System.
-              <br/>
-              Außerdem verwenden wir die regional aufgelösten Zahlen der täglich durchgeführten Tests, die uns freundlicherweise vom RKI zur Verfügung gestellt wurden.
-              Eine Zusammenfassung dieser Zahlen wird auch im <a href="https://ars.rki.de/Content/COVID19/Main.aspx">Wochenbericht des RKI</a> veröffentlicht.
-              </br>
-              Die Zahl durchgeführter Tests ist im derzeitigen Meldesystem schwer zu erfassen und wird derzeit vom ARS-Team des Robert&nbsp;Koch-Instituts auf Grundlage freiwillig übermittelter Zahlen der Testlabore zusammengestellt.
-              Insbesondere für kleine Bundesländer ist die Datenlage daher möglicherweise nicht representativ für die wirkliche Zahl durchgeführter Tests.
-            </p>
+            <h3>Where do the data come from? </h3>
+            <ul>
+              <li>
+                <p>
+                  <b>Germany</b>: We collect positive tests numbers thanks to the official
+                  <a href="https://experience.arcgis.com/experience/478220a4c454480e823b17327b2bf1d4">
+                    dashboard
+                  </a> of the RKI, which is based on the underlying ArcGIS system.
+                  <br>
+                                We also collect daily tests results by region. They are kindly
+                                provided to us by the RKI. A summary of these figures is also
+                                published by the RKI in its
+                  <a href="https://ars.rki.de/Content/COVID19/Main.aspx">weekly report</a>
+                                .
+                  <br>
+                                The number of tests carried out is difficult to analyze in the
+                                current reporting system. Thus, we currently use the data compiled
+                                by the ARS team of the Robert Koch Institute. Their figures are
+                                based on figures provided voluntarily by test laboratories. Today,
+                                for small federal states in particular, the data may therefore
+                                not be representative of the real number of tests carried out.
+                  <br>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <b>France</b>: The daily data come from the French government
+                  <a
+                  href="https://www.data.gouv.fr/fr/datasets/donnees-relatives-aux-resultats-des-tests-virologiques-covid-19">
+                    open-data repository</a>. Note that data by regions only contain tests for
+                               which residence regions of tested people could be known. Hence,
+                               countrywide data contain more tests than the sum of all regions.
+                               Moreover, data transmission can sometimes excess 9 days. Indicators
+                               are updated daily on test results reception.
+                </p>
+              </li>
+              <li>
+                <p>
+                  <b>United States and all other countries</b>: All the data come from
+                  <a href="https://www.covidtracking.org">covidtracking.org</a> and <a
+                        href="https://www.ourworldindata.org">ourworldindata.org</a>. Visit
+                  <a href="https://github.com/rtcovidlive/rtlive-global">
+                    github.com/rtcovidlive/rtlive-global
+                  </a> for all the data sources and a detailed explanation of how the model is programmed
+                </p>
+              </li>
+            </ul>
 
-            <h3>Warum fehlen Bremen und Saarland?</h3>
+            <h3>What do the superscript and subscript numbers mean?</h3>
             <p>
-              Unsere Analyse benötigt die Zahl der täglich durchgeführten Test pro Region.
-              Für Bremen und das Saarland schätzt das RKI die aktuell vorliegenden Daten als nicht representativ genug ein.
-            </p>
-
-            <h3>Worin unterscheidet sich diese Analyse von der <a href="https://www.rki.de/covid-19-nowcasting.html">Berechnung des RKI</a>?</h3>
-            <p>
-              Das <a href="https://rt.live">rt.live</a> Modell berücksichtigt neben dem zeitlichen Verzug zwischen Infektion und Positiv-Testergebnis auch die Anzahl der täglich durchgeführten Tests.
-              In unserer Detail-Ansicht ist dargestellt, dass die Zahl der täglichen Test in Deutschland im Wochentakt schwankt.
-            </p>
-            <p>
-              Bei mehr durchgeführten Tests steigt die Wahrscheinlichkeit einen Infizierten zu entdecken. Durch die Berücksichtigung dieser Wahrscheinlichkeit kann das Modell die wöchentlichen Schwankungen ausgleichen.
-            </p>
-            <p>
-              Für eine ausführliche Erklärung, wie das Modell programmiert ist, siehe <a href="https://github.com/rtcovidlive/rtlive-global">github.com/rtcovidlive/rtlive-global</a>.
-            </p>
-
-            <h3>Was bedeuten die hoch- und tiefgestellten Zahlen?</h3>
-            <p>
-              Die große Zahl beschreibt den Medianwert, während die kleinen Zahlen den Bereich angeben, in dem unsere Analyse den Wert mit 90%iger Wahrscheinlichkeit vermutet.
+              The large number describes the median value, while the small numbers indicate the
+              range in which our analysis suspects the true value is, with a 90% probability.
               X = 0.94
               <img src="assets/interval.png" class="interval" />
               <span class="subsup">
                 <sub>0.78</sub>
                 <sup>1.11</sup>
               </span>
-              kann also gelesen werden als <span class="font-italic">"Unsere Analyse hat ergeben, dass X mit 90%iger Wahrscheinlichkeit zwischen 0.78 und 1.11 liegt."</span>.
+              can therefore be read as <span class="font-italic">"Our analysis has shown that there is a 90% probability that X lies between 0.78 and 1.11."</span>.
             </p>
 
-            <h3>Nach welchen Regeln werden die Farben der Risikoindikatoren gewählt?</h3>
+            <h3>How are the colors of the risk indicators chosen?</h3>
             <p>
-                Für die Reproduktionszahl wählen wir die Farbe anhand der Wahrscheinlichkeit, dass R&nbsp;>&nbsp;1 ist.
+              For the reproduction number, we choose the color based on the probability that R > 1.
             </p>
             <table class="table table-sm">
               <thead>
                 <tr>
-                  <th>Farbe</th>
-                  <th>Wahrscheinlichkeitsbereich</th>
+                  <th>Color</th>
+                  <th>Probability range</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td><span class="badge badge-success">grün</span></td>
+                  <td><span class="badge badge-success">green</span></td>
                   <td>0-25 %</td>
                 </tr>
                 <tr>
-                  <td><span class="badge badge-secondary">grau</span></td>
+                  <td><span class="badge badge-secondary">gray</span></td>
                   <td>25-50 %</td>
                 </tr>
                 <tr>
@@ -141,41 +165,54 @@
                   <td>50-75 %</td>
                 </tr>
                 <tr>
-                  <td><span class="badge badge-danger">rot</span></td>
+                  <td><span class="badge badge-danger">red</span></td>
                   <td>75-100 %</td>
                 </tr>
               </tbody>
             </table>
 
-            <h3>Welche Schwächen hat die Methode?</h3>
+            <h3>What are the weaknesses of the method?</h3>
             <p>
-              Das Modell benötigt die Zahl täglich durchgeführter COVID-19-Tests, welche für Deutschland aber nur verspätet verfügbar ist. Wir verwenden daher <span class="font-italic"><a href="https://facebook.github.io/prophet/">Prophet</a></span>,
-              um die Zahl der durchgeführten Tests vorherzusagen.
-              Unsere Vorhersage wird in der Detailansicht dargestellt, doch je weiter die letzten Zahlen zurückliegen, desto unzuverlässiger wird diese Vorhersage.<br>
-            </p>
-            <p>
-              Kein Modell kann die Realität exakt beschreiben. Das heißt je mehr wir über die Pandemie verstehen, desto mehr "Fehler" des Modells lernen wir kennen.
+              The model requires the number of daily performed COVID-19 tests, which are only
+              available within a delay for all countries. We therefore use
+              <span class="font-italic"><a href="https://facebook.github.io/prophet/"
+              >Facebook's Prophet</a></span>
+              library to predict the number of tests that will be performed. Our forecast is
+              shown in the detailed view, but, in a nutshell, the older the latest test numbers
+              are, the less reliable this forecast becomes.
               <br>
-              Im Detail macht das Modell Annahmen, die durch Literaturquellen informiert sind, aber nicht unbedingt exakt auf Deutschland zutreffen.
-              Zudem sind auch diese Literaturwerte nur Momentaufnahmen, die im Verlauf der Pandemie mehr oder weniger stark zutreffen.
-              <br>
-              Zentral für das Modell sind dabei zwei Wahrscheinlichkeitsverteilungen:
+              No model can exactly describe reality and the more we learn about the pandemic,
+              the more "flaws" in the model we get to know. The model also makes assumptions that
+              are informed by literature sources, but do not necessarily apply exactly to every
+              countries we model here. In addition, these literature sources are only snapshots
+              that apply to a greater or lesser extent in the course of the pandemic.
             </p>
+              Yet, two probability distributions are key to the model:
             <ul>
-              <li>zeitlicher Versatz zwischen Infektion und Positiv-Test</li>
-              <li>zeitlicher Versatz zwischen Infektion und Ansteckung weiterer Personen</li>
+              <li>The time lag between an infection and an observed positive test.</li>
+              <li>The time lag between the infection of a person A and the infection of another
+                  person B by this person A.</li>
             </ul>
+            <br>
 
-            <h3>Wer steckt hinter dieser Seite?</h3>
+            <h3>Who is behind this page?</h3>
             <p>
-              Wir, <a href="https://www.fz-juelich.de/SharedDocs/Personen/IBG/IBG-1/DE/Research_groups/bioproc/helleckes.html">Laura Helleckes</a>
-              und 
-              <a href="https://www.fz-juelich.de/SharedDocs/Personen/IBG/IBG-1/DE/Research_groups/bioproc/osthege.html">Michael Osthege</a>,
-              sind Doktoranden am Institut für Biotechnologie (IBG-1) des Forschungszentrums Jülich. Wir haben das originale <a href="https://github.com/rtcovidlive/covid-model">Open-Source-Modell </a>
-              für Deutschland angepasst. Bei Fragen und Anmerkungen wenden Sie sich bitte per <a href="mailto:m.osthege@fz-juelich.de;l.helleckes@fz-juelich.de?subject=Rtlive">Mail</a> an uns.
-            <p>
+              We,
+              <a href="https://www.fz-juelich.de/SharedDocs/Personen/IBG/IBG-1/DE/Research_groups/bioproc/helleckes.html">
+                Laura Helleckes
+              </a> and
+              <a href="https://www.fz-juelich.de/SharedDocs/Personen/IBG/IBG-1/DE/Research_groups/bioproc/osthege.html">
+                Michael Osthege
+              </a>, are doctoral students at the Institute for
+              Biotechnology (IBG-1) at the Jülich Research Center. We have adapted the original
+              <a href="https://github.com/rtcovidlive/covid-model">open-source model</a> for
+              Germany. If you have any questions or comments, please
+              contact us by
+              <a href="mailto:m.osthege@fz-juelich.de;l.helleckes@fz-juelich.de?subject=Rtlive">
+                email
+              </a>.
             </p>
-            
+
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -229,10 +266,10 @@
         </p>
       </div>
     </section>
-    
+
     <!-- Region thumbnail gallery -->
     <div class="album py-5 bg-light" style="padding-top: 0rem !important;">
-      
+
       <div class="container">
         <div class="row">
           <div id="flagBar" class="btn-group btn-group-justified mx-auto btn-group-toggle" data-toggle="buttons" style="margin-bottom: 30px; flex-wrap: wrap;">
@@ -303,7 +340,7 @@
           </a>
         </div>
       </div>
-    </div>  
+    </div>
   </footer>
 </body>
 </html>
