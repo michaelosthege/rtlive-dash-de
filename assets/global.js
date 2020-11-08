@@ -24,6 +24,7 @@ function getSortedDataObjects(filterSetting, scope, indicator_scope="r_t_thresho
             var color = indicatorColor(regionJson, indicator_scope)
             if (filterSetting == "all" && region_code == "all") {
                 dobjects.push({
+                    "uid": `${ca2}_${region_code}`,
                     "name": flagEmoji(ca2),
                     "short_name": flagEmoji(ca2),
                     "json": regionJson,
@@ -31,6 +32,7 @@ function getSortedDataObjects(filterSetting, scope, indicator_scope="r_t_thresho
                 });
             } else if (ca2 == filterSetting) {
                 dobjects.push({
+                    "uid": `${ca2}_${region_code}`,
                     "name": region_name.replace("all", "Ø"),
                     "short_name": region_short_name.replace("all", "Ø"),
                     "json": regionJson,
@@ -251,9 +253,13 @@ function createRankingChart(filterSetting, scope, sort_by, indicator_scope) {
 
     // draw uncertainty bars
     var bandwidth = xScale.bandwidth();
-    var barWidth = 10;
     var bubbleWidth = 30;
-    var bubbleHeight = 20;
+    var scaleFactor = Math.min(bandwidth / bubbleWidth, 1);
+    bubbleWidth *= scaleFactor;
+    var barWidth = 10 * scaleFactor;
+    var bubbleHeight = 20 * scaleFactor;
+    var fontSize = 9 * scaleFactor;
+
     svg.selectAll("div")
         .data(dobjects)
         .enter().append("rect")
@@ -272,30 +278,13 @@ function createRankingChart(filterSetting, scope, sort_by, indicator_scope) {
         .attr("style", function (entry) {return `fill: ${entry.color}`;})
         .attr("rx", 5);
 
-    // and add region bubbles
-    svg.selectAll("div")
-        .data(dobjects)
-        .enter().append("rect")
-        .attr("class", "barBubble")
-        .attr("x", function(entry){
-            // convert the ordinal x-category to an x-coordinate
-            return bandwidth/2 + xScale(entry.name) - bubbleWidth/2;
-        })
-        .attr("y", function (entry) {
-            return yScale(entry.json[scope]) - bubbleHeight/2;
-        })
-        .attr("width", bubbleWidth)
-        .attr("height", bubbleHeight)
-        .attr("style", function (entry) {return `stroke: ${entry.color}`;})
-        .attr("rx", 10);
-
-    // add trend arrows
+    // then overlay trend arrows
     if (scope == "infections_by_100k") {
         // first define one arrowhead for each region (because arrowheads can't inherit the colors from the line)
         svg.selectAll("div")
             .data(dobjects).enter()
             .append("svg:marker")
-            .attr("id", function(entry){return `triangle-${entry.name}`;})
+            .attr("id", function(entry){return `triangle-${entry.uid}`;})
             .attr("refX", 3)
             .attr("refY", 3)
             .attr("markerWidth", 6)
@@ -327,10 +316,27 @@ function createRankingChart(filterSetting, scope, sort_by, indicator_scope) {
             })
             .attr("stroke-width", 1)
             .attr("stroke", function (entry) {return entry.color;})
-            .attr("marker-end", function(entry){return `url(#triangle-${entry.name})`;});
+            .attr("marker-end", function(entry){return `url(#triangle-${entry.uid})`;});
     }
 
-    // and add region labels
+    // region bubbles go on top of trend arrows!
+    svg.selectAll("div")
+        .data(dobjects)
+        .enter().append("rect")
+        .attr("class", "barBubble")
+        .attr("x", function(entry){
+            // convert the ordinal x-category to an x-coordinate
+            return bandwidth/2 + xScale(entry.name) - bubbleWidth/2;
+        })
+        .attr("y", function (entry) {
+            return yScale(entry.json[scope]) - bubbleHeight/2;
+        })
+        .attr("width", bubbleWidth)
+        .attr("height", bubbleHeight)
+        .attr("style", function (entry) {return `stroke: ${entry.color};stroke-width:${1.5*scaleFactor}px`;})
+        .attr("rx", 10 * scaleFactor);
+
+    // and region labels to the top
     svg.selectAll("div")
         .data(dobjects)
         .enter().append("text")
@@ -343,7 +349,7 @@ function createRankingChart(filterSetting, scope, sort_by, indicator_scope) {
         .attr("y", function (entry) {
             return yScale(entry.json[scope]);
         })
-        .attr("style", function (entry) {return `fill: ${entry.color}`;})
+        .attr("style", function (entry) {return `fill: ${entry.color};font-size:${fontSize}pt`;})
         .attr("dy", "0.35em");
 
 };
@@ -355,7 +361,10 @@ function setFilter(selected, scope) {
     $(`#btnRank_${scope}`).button('toggle');
     $(`#btnFilter_${selected}`).button('toggle');
 
-    createRankingChart(filterSetting=CURRENT_FILTER, scope=CURRENT_SCOPE);
+    createRankingChart(
+        filterSetting=(selected != "all" && INDEX[selected]["regions"].length <= 1) ? "all" : CURRENT_FILTER,
+        scope=CURRENT_SCOPE
+    );
     if (selected == "all") {
         // show all nation thumbs, but no headers
         $.each(INDEX, function(country_alpha2, country) {
