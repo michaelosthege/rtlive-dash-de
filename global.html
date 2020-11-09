@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Rtlive.de</title>
+  <meta name="author" content="Laura Helleckes, Michael Osthege">
+  <meta name="description" content="COVID-19 reproductive number of many countries">
+  <meta property="og:description" content="COVID-19 reproductive number of many countries">
+  <meta property="og:title" content="Rtlive.de/global: International reproductive numbers" />
+  <meta property="og:url" content="https://rtlive.de" />
+  <meta property="og:image" content="/data/de_all_thumb.png">
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="de_DE" />
+  <meta name="twitter:card" content="summary" />
+
+  <link rel="shortcut icon" type="image/png" href="/assets/favicon.png">
+  <link rel="shortcut icon" sizes="192x192" href="/assets/favicon.png">
+  <link rel="apple-touch-icon" href="/assets/favicon.png">
+
+  <!-- CSS only -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="assets/custom.css" />
+
+  <!-- JS, Popper.js, and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment-with-locales.min.js" integrity="sha512-qSnlnyh7EcD3vTqRoSP4LYsy2yVuqqmnkM9tW4dWo6xvAoxuVXyM36qZK54fyCmHoY1iKi9FJAUZrlPqmGNXFw==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js" integrity="sha512-FHsFVKQ/T1KWJDGSbrUhTJyS1ph3eRrxI228ND0EGaEp6v4a/vGwPWd3Dtd/+9cI7ccofZvl/wulICEurHN1pg==" crossorigin="anonymous"></script>
+  <script src="assets/global.js"></script>
+</head>
+
+<body>
+  <header>
+    <div class="navbar navbar-dark bg-dark shadow-sm">
+      <div class="container d-flex justify-content-between">
+        <div class="navbar-brand d-flex align-items-center">
+          <img src="assets/favicon.png" style="height: 2em; padding: 0.4em; width: 2em;" />
+          <strong>R<sub style="margin-right: 0.1em;">t</sub>live.de</strong>
+        </div>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#faqModal">
+          FAQ
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main role="main" class="bg-light">
+
+    <!-- FAQ Modal -->
+    <div class="modal fade" id="faqModal" tabindex="-1" role="dialog" aria-labelledby="faqModalTitle" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="faqModalTitle">FAQ</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h3>What is R<sub>t</sub>?</h3>
+            <p>
+              The R<sub>t</sub>, also known as the reproduction rate, describes how many
+              people an infected person ends up infecting.
+              Together with the number of new infections, the reproduction rate R<sub>t</sub> is
+              an important figure to follow to understand how fast the disease spreads.
+              <br>
+              We can distinguish three different scenarios:
+            </p>
+              <ul>
+                <li>R<sub>t</sub>&gt;1: the number of new infections increases</li>
+                <li>R<sub>t</sub>=1: the number of new infections is stable</li>
+                <li>R<sub>t</sub>&lt;1: the number of new infections decreases</li>
+              </ul>
+            <p>
+              For more information, you can take a look at <a
+                    href="https://en.wikipedia.org/wiki/Basic_reproduction_number">
+              this page</a> to begin with.
+            </p>
+
+            <h3>Where do the data come from? </h3>
+            <ul>
+              <li>
+                <p>
+                  <b>Germany</b>: We collect positive tests numbers thanks to the official
+                  <a href="https://experience.arcgis.com/experience/478220a4c454480e823b17327b2bf1d4">dashboard</a> of the RKI, which is based on the underlying ArcGIS system.
+                  <br>
+                  We also collect daily tests results by region. They are kindly
+                  provided to us by the RKI. A summary of these figures is also
+                  published by the RKI in its
+                  <a href="https://ars.rki.de/Content/COVID19/Main.aspx">weekly report.</a>
+                  <br>
+                  The number of tests carried out is difficult to analyze in the
+                  current reporting system. Thus, we currently use the data compiled
+                  by the ARS team of the Robert Koch Institute. Their figures are
+                  based on figures provided voluntarily by test laboratories. Today,
+                  for small federal states in particular, the data may therefore
+                  not be representative of the real number of tests carried out.
+                  The German data loader was contributed by Laura Helleckes and Michael Osthege.
+                </p>
+              </li>
+              <li>
+                <p>
+                  <b>France</b>: The daily data come from the French government
+                  <a href="https://www.data.gouv.fr/fr/datasets/donnees-relatives-aux-resultats-des-tests-virologiques-covid-19">open-data repository</a>.
+                  Note that data by regions only contain tests for
+                  which residence regions of tested people could be known. Hence,
+                  countrywide data contain more tests than the sum of all regions.
+                  Moreover, data transmission can sometimes excess 9 days. Indicators
+                  are updated daily on test results reception.
+                  The french data loader was contributed by Alexandre Andorra.
+                </p>
+              </li>
+              <li>
+                <p>
+                  <b>United States</b>: All the data come from
+                  <a href="https://www.covidtracking.org">covidtracking.org</a>.
+                  The US data loader originates from the <a href="https://github.com/rtcovidlive/covid-model">original project</a>.
+                </p>
+              </li>
+              <li>
+                <p>
+                  <b>All other countries</b>: Data come from
+                  <a href="https://www.ourworldindata.org">ourworldindata.org</a>.
+                </p>
+              </li>
+            </ul>
+            <p>
+              Visit
+              <a href="https://github.com/rtcovidlive/rtlive-global">
+                github.com/rtcovidlive/rtlive-global
+              </a>
+              for all the data sources and a detailed explanation of how the model is programmed.
+            </p>
+
+            <h3>What do the superscript and subscript numbers mean?</h3>
+            <p>
+              The large number describes the median value, while the small numbers indicate the
+              range in which our analysis suspects the true value is, with a 90% probability.
+              X = 0.94
+              <img src="assets/interval.png" class="interval" />
+              <span class="subsup">
+                <sub>0.78</sub>
+                <sup>1.11</sup>
+              </span>
+              can therefore be read as <span class="font-italic">"Our analysis has shown that there is a 90% probability that X lies between 0.78 and 1.11."</span>.
+            </p>
+
+            <h3>How are the colors of the risk indicators chosen?</h3>
+            <p>
+              For the reproduction number, we choose the color based on the probability that R > 1.
+            </p>
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th>Color</th>
+                  <th>Probability range</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="badge badge-success">green</span></td>
+                  <td>0-25 %</td>
+                </tr>
+                <tr>
+                  <td><span class="badge badge-secondary">gray</span></td>
+                  <td>25-50 %</td>
+                </tr>
+                <tr>
+                  <td><span class="badge badge-warning">orange</span></td>
+                  <td>50-75 %</td>
+                </tr>
+                <tr>
+                  <td><span class="badge badge-danger">red</span></td>
+                  <td>75-100 %</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>What are the weaknesses of the method?</h3>
+            <p>
+              The model requires the number of daily performed COVID-19 tests, which are only
+              available within a delay for all countries. We therefore use
+              <span class="font-italic"><a href="https://facebook.github.io/prophet/"
+              >Facebook's Prophet</a></span>
+              library to predict the number of tests that will be performed.
+              <br>
+              Our forecast is shown in the detailed views, but, in a nutshell, the older the
+              latest test numbers are, the less reliable this forecast becomes.
+              <br>
+              No model can exactly describe reality and the more we learn about the pandemic,
+              the more "flaws" in the model we get to discover. The model also makes assumptions
+              that are informed by literature sources, but do not necessarily apply exactly to every
+              countries we model here. In addition, these literature sources are only snapshots
+              that apply to a greater or lesser extent in the course of the pandemic.
+            </p>
+            <p>
+              Importantly, two probability distributions are key to the model:
+            </p>
+            <ul>
+              <li>The time lag between an infection and an observed positive test.</li>
+              <li>The time lag between the infection of a person A and the infection of another
+                  person B by this person A.</li>
+            </ul>
+
+            <h3>Who is behind this page?</h3>
+            <p>
+              We,
+              <a href="https://www.fz-juelich.de/SharedDocs/Personen/IBG/IBG-1/DE/Research_groups/bioproc/helleckes.html">
+                Laura Helleckes
+              </a> and
+              <a href="https://www.fz-juelich.de/SharedDocs/Personen/IBG/IBG-1/DE/Research_groups/bioproc/osthege.html">
+                Michael Osthege,
+              </a> are doctoral students at the Institute for
+              Biotechnology (IBG-1) at the Jülich Research Center. We have adapted the original
+              <a href="https://github.com/rtcovidlive/covid-model">open-source model</a> for
+              cross-country compatibility. But we're not alone here! As you'll see at
+              <a href="https://github.com/rtcovidlive/rtlive-global">
+                github.com/rtcovidlive/rtlive-global,
+              </a> there are many other people, who made a contribution to this project. If
+              you have any questions or comments, please contact us by
+              <a href="mailto:m.osthege@fz-juelich.de;l.helleckes@fz-juelich.de?subject=Rtlive">
+                email.
+              </a>
+            </p>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Welcome text -->
+    <section class="jumbotron text-center">
+      <div class="container">
+        <h1>Welcome to R<sub style="margin-right: 0.1em;">t</sub>live global</h1>
+        <p class="lead text-muted">
+          On this site you can find nowcasting analyses of reproduction number R<sub>t</sub> and incidence for many countries.
+          <br/>
+          The R-value tells us if COVID-19 is spreading in a particular region, or if the numbers are going down.
+        <br/>
+          Under <a href="#faqModal" data-toggle="modal" data-target="#faqModal">
+            Frequently asked Questions
+          </a> you can find more information about this analysis.
+        </p>
+      </div>
+    </section>
+
+    <!-- Ranking chart -->
+    <section class="jumbotron" style="padding-top: 0; padding-bottom: 0;">
+      <div class="container">
+        <label><strong>View:</strong></label><br/>
+        <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
+          <label id="btnRank_r_t" class="btn btn-light" onclick="setFilter(CURRENT_FILTER, 'r_t')">
+            <input type="radio" name="options" id="option1"> Reproductive number
+          </label>
+          <label id="btnRank_infections_by_100k" class="btn btn-light" onclick="setFilter(CURRENT_FILTER, 'infections_by_100k')">
+            <input type="radio" name="options" id="option2"> Infection rate
+          </label>
+        </div>
+        <div id="rankingChart" class="svg-container"></div>
+      </div>
+    </section>
+
+    <section class="container">
+      <div class="bs-callout bs-callout-warning">
+        <h5>Attention</h5>
+        <p>
+          As you can see we are running the analysis on a large number of countries/regions.
+          To ensure a high quality of the results we depend on local domain expertise.
+          </br>
+          If you notice data quality issues (e.g. outliers), please file a bug report at <a href="https://github.com/rtcovidlive/rtlive-global">github.com/rtcovidlive/rtlive-global</a>
+          </br>
+          To add support for your country, please open a pull request!
+        </p>
+      </div>
+    </section>
+
+    <!-- Region thumbnail gallery -->
+    <div class="album py-5 bg-light" style="padding-top: 0rem !important;">
+
+      <div class="container">
+        <div class="row">
+          <div id="flagBar" class="btn-group btn-group-justified mx-auto btn-group-toggle" data-toggle="buttons" style="margin-bottom: 30px; flex-wrap: wrap;">
+            <label id="btnFilter_all" class="btn btn-light focus active" style="font-size: larger;" onclick="setFilter('all', CURRENT_SCOPE)">
+              <input type="radio" name="options"> all
+            </label>
+          </div>
+        </div>
+        <div id="thumbnailGallery" class="row">
+        </div>
+      </div>
+    </div>
+
+    <!-- Details view modal -->
+    <div class="modal fade" id="regionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="regionModalTitle">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <img id="regionModalImage" width="100%" src=""/>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer mt-auto py-3 bg-dark">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-5">
+          <h5 style="color:white">References</h5>
+          <ul class="list-unstyled text-small">
+            <li class="text-muted">This analysis is based on <a href="https://rt.live">rt.live</a>, a project by Kevin Systrom, Mike Krieger, Thomas Vladek and more.</li>
+            <li class="text-muted">
+              For code, a list of contributors, data sources, bugs and contributions go to <a href="https://github.com/rtcovidlive/rtlive-global">github.com/rtcovidlive/rtlive-global</a>.
+            </br>
+              The site is run by <a href="https://www.fz-juelich.de/SharedDocs/Personen/IBG/IBG-1/DE/Research_groups/bioproc/helleckes.html">Laura Helleckes</a> and <a href="https://www.fz-juelich.de/SharedDocs/Personen/IBG/IBG-1/DE/Research_groups/bioproc/osthege.html">Michael Osthege</a>.
+            </li>
+            </br>
+            <li class="text-muted">Modeling: <a href="https://docs.pymc.io/">PyMC3</a>, <a href="https://arviz-devs.github.io/arviz">ArviZ</a>, <a href="https://pandas.pydata.org/">pandas</a>, <a href="https://facebook.github.io/prophet/">fbprophet</a></li>
+            <li class="text-muted">Visualization: <a href="https://matplotlib.org/">matplotlib</a>, <a href="https://d3js.org/">d3.js</a></li>
+            <li class="text-muted">Website: <a href="https://getbootstrap.com/">Bootstrap</a>, <a href="https://momentjs.com/">Moment.js</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h5 style="color:white">Contact</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="mailto:m.osthege@fz-juelich.de?subject=Rtlive">Michael Osthege</a></li>
+            <li><a class="text-muted" href="https://www.fz-juelich.de/ibg/ibg-1/DE/Home/home_node.html">IBG-1: Biotechnologie</a></li>
+            <li><a class="text-muted" >Wilhelm-Johnen-Straße</a></li>
+            <li><a class="text-muted">52428 Jülich</a></li>
+          </ul>
+          <a href="impressum.html">Impressum</a><br/>
+          <a href="datenschutz.html">Privacy Policy</a>
+        </div>
+        <div class="col-md-4">
+          <a href="https://fz-juelich.de/">
+            <img src="assets/logo_fzj.png" style="width:100%;" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
