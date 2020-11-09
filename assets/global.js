@@ -220,16 +220,16 @@ function createRankingChart(filterSetting, scope, sort_by, indicator_scope) {
                 .attr('font-size', 'x-small')
                 .attr('text-anchor', 'middle')
                 .attr('transform', 'rotate(-90)')
-                .text("daily new infections")
+                .text("daily new infections per 100,000 population")
             ;
-            svg.append('g')
-                .attr('transform', `translate(${axisLabelX}, ${axisLabelY})`)
-                .append('text')
-                .attr('font-size', 'x-small')
-                .attr('text-anchor', 'middle')
-                .attr('transform', 'rotate(-90)')
-                .text("per 100,000 population")
-            ;
+            // svg.append('g')
+            //     .attr('transform', `translate(${axisLabelX}, ${axisLabelY})`)
+            //     .append('text')
+            //     .attr('font-size', 'x-small')
+            //     .attr('text-anchor', 'middle')
+            //     .attr('transform', 'rotate(-90)')
+            //     .text("per 100,000 population")
+            // ;
             break;
     }
 
