@@ -54,10 +54,10 @@ function getSortedDataObjects(filterSetting, scope, indicator_scope="r_t_thresho
 function showRegion(country_alpha2, countryName, region, regionName, date) {
     $('#regionModal').modal('show');
     if (countryName == regionName){
-        $('#regionModalTitle').html(countryName);
+        $('#regionModalTitle').html(unescape(countryName));
     }
     else {
-        $('#regionModalTitle').html(`${countryName} / ${regionName}`);
+        $('#regionModalTitle').html(`${unescape(countryName)} / ${unescape(regionName)}`);
     }
     $('#regionModalImage').attr('src', `data/${country_alpha2}/${date}/${region}/details.png`)
 };
@@ -115,7 +115,7 @@ function createRegionCard(country_alpha2, countryName, region, regionName, regio
     var html = `
     <div id="card_${country_alpha2}_${region}" class="col-md-4">
         <div class="card mb-4 shadow-sm">
-        <img width="100%" style="cursor: pointer;" src="data/${country_alpha2}/${date}/${region}/thumb.png" onclick="showRegion('${country_alpha2}', '${countryName}', '${region}', '${regionName}', '${date}')"></img>
+        <img width="100%" style="cursor: pointer;" src="data/${country_alpha2}/${date}/${region}/thumb.png" onclick="showRegion('${country_alpha2}', '${escape(countryName)}', '${region}', '${escape(regionName)}', '${date}')"></img>
         <div class="detailsLink">
             <span>Details</span>
             &#10095;
