@@ -11,8 +11,8 @@ It is not our day job to run this site, and we are not web-developers which is w
 ## Development
 Follow these steps to start a webserver for local development:
 1. Clone this repository
-2. Unpack the contents of [this ZIP file]() into a `"data"` directory at the root of the repository.
-These files are a subset of the PNG/JSON files that are served from the AWS CloudFront/S3 deployment of the real site.
+2. Unpack the contents of [this ZIP file](https://rtlive.de/docs/2020-11-12_one_week_of_data.zip) into a `"data"` directory at the root of the repository.
+These files are a one-week subset of the PNG/JSON files that are served from the AWS CloudFront/S3 deployment of the real site.
 3. start a [Docker container](https://www.docker.com/products/docker-desktop) of a local webserver for testing.
     1. adapt the `start.sh` file such that it points to the correct paths on your local filesystem.
     2. Then run `bash start.sh` and 
