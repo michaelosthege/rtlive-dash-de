@@ -59,7 +59,7 @@ function showRegion(country_alpha2, countryName, region, regionName, date) {
     else {
         $('#regionModalTitle').html(`${unescape(countryName)} / ${unescape(regionName)}`);
     }
-    $('#regionModalImage').attr('src', `data/${country_alpha2}/${date}/${region}/details.png`)
+    $('#regionModalImage').attr('src', `${window.location.origin}/data/${country_alpha2}/${date}/${region}/details.png`)
 };
 
 function indicatorColor(regionJson, indicator_scope) {
@@ -115,7 +115,7 @@ function createRegionCard(country_alpha2, countryName, region, regionName, regio
     var html = `
     <div id="card_${country_alpha2}_${region}" class="col-md-4">
         <div class="card mb-4 shadow-sm">
-        <img width="100%" style="cursor: pointer;" src="data/${country_alpha2}/${date}/${region}/thumb.png" onclick="showRegion('${country_alpha2}', '${escape(countryName)}', '${region}', '${escape(regionName)}', '${date}')"></img>
+        <img width="100%" style="cursor: pointer;" src="${window.location.origin}/data/${country_alpha2}/${date}/${region}/thumb.png" onclick="showRegion('${country_alpha2}', '${escape(countryName)}', '${region}', '${escape(regionName)}', '${date}')"></img>
         <div class="detailsLink">
             <span>Details</span>
             &#10095;
@@ -401,7 +401,7 @@ function setFilter(selected, scope) {
 
 $(document).ready(function() {
     // first, we must download the index file that tells us which countries & regions there are
-    $.getJSON("data/index.json", function(json) {
+    $.getJSON(`${window.location.origin}/data/index.json`, function(json) {
         INDEX = json;
         // collect promies that download region-wise JSONs
         var regionPromises = [];
@@ -427,7 +427,7 @@ $(document).ready(function() {
                 // first insert region card placeholders in the correct order!
                 $(`#thumbnailGallery`).append(`<div id="card_${country_alpha2}_${region}"></div>`);
                 // then fetch content (unordered callbacks!)
-                regionPromises.push($.getJSON(`data/${country_alpha2}/${lastDate}/${region}/summary.json`, function(regionJson) {
+                regionPromises.push($.getJSON(`${window.location.origin}/data/${country_alpha2}/${lastDate}/${region}/summary.json`, function(regionJson) {
                     FULL_DATASET[`${country_alpha2}_${region}`] = regionJson;
                     createRegionCard(country_alpha2, countryName, region, regionName, regionShortName, lastDate, regionJson);
                 }));

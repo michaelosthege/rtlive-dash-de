@@ -22,7 +22,7 @@ var FULL_DATASET = {};
 function showRegion(region) {
     $('#regionModal').modal('show');
     $('#regionModalTitle').html(REGION_NAMES[region]);
-    $('#regionModalImage').attr('src', `data/de_${region}.png`)
+    $('#regionModalImage').attr('src', `${window.location.origin}/data/de_${region}.png`)
 };
 
 function indicatorColor(regionJson, indicator_scope) {
@@ -85,7 +85,7 @@ function createRegionCard(region, regionTitle, json) {
     var html = `
     <div class="col-md-4">
         <div class="card mb-4 shadow-sm">
-        <img width="100%" style="cursor: pointer;" src="data/de_${region}_thumb.png" onclick="showRegion('${region}')"></img>
+        <img width="100%" style="cursor: pointer;" src="${window.location.origin}/data/de_${region}_thumb.png" onclick="showRegion('${region}')"></img>
         <div class="detailsLink">
             <span>Details</span>
             &#10095;
@@ -350,7 +350,7 @@ $(document).ready(function() {
         // first insert region card placeholders in the correct order!
         $("#regionCards").append(`<div id="card${region}"></div>`);
         // then fetch content (unordered callbacks!)
-        regionPromises.push($.getJSON(`data/de_${region}_summary.json`, function(json) {
+        regionPromises.push($.getJSON(`${window.location.origin}/data/de_${region}_summary.json`, function(json) {
             FULL_DATASET[region] = json;
             createRegionCard(region, regionTitle, json);
         }));
