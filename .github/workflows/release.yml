@@ -15,7 +15,7 @@ jobs:
       uses: chabad360/htmlproofer@master
       with:
         directory: "."
-    - name: Deploy preview site
+    - name: Deploy site
     - uses: jakejarvis/s3-sync-action@master
       with:
         args: --exclude '*' --include '*.html' --include 'assets/*' --include 'global'
