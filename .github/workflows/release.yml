@@ -1,0 +1,28 @@
+name: release-pipeline
+
+on:
+  release:
+    types:
+      - created
+
+
+jobs:
+  deploy-live:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Check HTML
+      uses: chabad360/htmlproofer@master
+      with:
+        directory: "."
+    - name: Deploy site
+    - uses: jakejarvis/s3-sync-action@master
+      with:
+        args: --exclude '*' --include '*.html' --include 'assets/*' --include 'global'
+      env:
+        AWS_S3_BUCKET: rtlive.de
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: 'eu-central-1'
+        SOURCE_DIR: '.'
+        DEST_DIR: ''

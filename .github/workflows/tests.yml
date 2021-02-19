@@ -1,0 +1,13 @@
+name: test-pipeline
+
+on: [push, pull_request]
+
+jobs:
+  check-syntax:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Check HTML
+      uses: chabad360/htmlproofer@master
+      with:
+        directory: "."
