@@ -16,7 +16,7 @@ jobs:
       with:
         directory: "."
     - name: Deploy site
-    - uses: jakejarvis/s3-sync-action@master
+      uses: jakejarvis/s3-sync-action@master
       with:
         args: --exclude '*' --include '*.html' --include 'assets/*' --include 'global'
       env:
