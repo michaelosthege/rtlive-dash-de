@@ -20,6 +20,7 @@ function getSortedDataObjects(filterSetting, scope, indicator_scope="r_t_thresho
             var region_name = reg[1];
             var region_short_name = reg[2];
             var regionJson = FULL_DATASET[`${ca2}_${region_code}`];
+            if (!regionJson) return; //Skip regions for which data is not available
             // pre-compute some properties that are used in various places downstream
             var color = indicatorColor(regionJson, indicator_scope)
             if (filterSetting == "all" && region_code == "all") {
