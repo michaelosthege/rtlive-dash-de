@@ -206,6 +206,7 @@ function createRankingChart(scope, sort_by, indicator_scope) {
                 .text("t")
                 ;
             break;
+        case "7d_infections_by_100k":
         case "infections_by_100k":
             svg.append('g')
                 .attr('transform', `translate(${axisLabelX - 10}, ${axisLabelY})`)
@@ -213,7 +214,7 @@ function createRankingChart(scope, sort_by, indicator_scope) {
                 .attr('font-size', 'x-small')
                 .attr('text-anchor', 'middle')
                 .attr('transform', 'rotate(-90)')
-                .text("tägliche Neuinfektionen")
+                .text(scope == "infections_by_100k" ? "tägliche Neuinfektionen" : "7-Tage Neuinfektionen")
             ;
             svg.append('g')
                 .attr('transform', `translate(${axisLabelX}, ${axisLabelY})`)
@@ -285,7 +286,7 @@ function createRankingChart(scope, sort_by, indicator_scope) {
         .attr("rx", 10);
 
     // add trend arrows
-    if (scope == "infections_by_100k") {
+    if (scope == "infections_by_100k" || scope == "7d_infections_by_100k") {
         // first define one arrowhead for each region (because arrowheads can't inherit the colors from the line)
         svg.selectAll("div")
             .data(dobjects).enter()

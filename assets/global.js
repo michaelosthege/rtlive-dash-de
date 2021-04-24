@@ -5,11 +5,8 @@ var CURRENT_SCOPE = null;
 
 
 function getSortedDataObjects(filterSetting, scope, indicator_scope="r_t_threshold_probability") {
-    var sort_by = null;
-    if (scope == "infections_by_100k") {
-        sort_by = "infections_by_100k";
-    }
-    else if (scope == "r_t") {
+    var sort_by = scope;
+    if (scope == "r_t") {
         sort_by = "r_t_threshold_probability";
     }
     var dobjects = [];
@@ -214,6 +211,7 @@ function createRankingChart(filterSetting, scope, sort_by, indicator_scope) {
                 .text("t")
                 ;
             break;
+        case "7d_infections_by_100k":
         case "infections_by_100k":
             svg.append('g')
                 .attr('transform', `translate(${axisLabelX - 10}, ${axisLabelY})`)
@@ -221,7 +219,7 @@ function createRankingChart(filterSetting, scope, sort_by, indicator_scope) {
                 .attr('font-size', 'x-small')
                 .attr('text-anchor', 'middle')
                 .attr('transform', 'rotate(-90)')
-                .text("daily new infections per 100,000 population")
+                .text(scope == "infections_by_100k" ? "daily new infections per 100,000 population" : "infections in 7 days per 100,000 population")
             ;
             // svg.append('g')
             //     .attr('transform', `translate(${axisLabelX}, ${axisLabelY})`)
@@ -280,7 +278,7 @@ function createRankingChart(filterSetting, scope, sort_by, indicator_scope) {
         .attr("rx", 5);
 
     // then overlay trend arrows
-    if (scope == "infections_by_100k") {
+    if (scope == "infections_by_100k" || scope == "7d_infections_by_100k") {
         // first define one arrowhead for each region (because arrowheads can't inherit the colors from the line)
         svg.selectAll("div")
             .data(dobjects).enter()
