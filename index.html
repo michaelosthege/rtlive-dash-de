@@ -28,7 +28,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment-with-locales.min.js" integrity="sha512-qSnlnyh7EcD3vTqRoSP4LYsy2yVuqqmnkM9tW4dWo6xvAoxuVXyM36qZK54fyCmHoY1iKi9FJAUZrlPqmGNXFw==" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js" integrity="sha512-FHsFVKQ/T1KWJDGSbrUhTJyS1ph3eRrxI228ND0EGaEp6v4a/vGwPWd3Dtd/+9cI7ccofZvl/wulICEurHN1pg==" crossorigin="anonymous"></script>
-  <script src="assets/main.js"></script>
+  <!-- <script src="assets/main.js"></script> -->
 </head>
 
 <body>
@@ -188,7 +188,7 @@
     <section class="jumbotron text-center">
       <div class="container">
         <h1>Willkommen auf R<sub style="margin-right: 0.1em;">t</sub>live.de</h1>
-        <p class="lead text-muted">
+        <!-- <p class="lead text-muted">
           Wie schnell breitet sich COVID-19 in Deutschland aus?
         <br/>
           Auf dieser Seite stellen wir tägliche Vorhersagen des R-Werts für deutsche Bundesländer bereit.
@@ -198,12 +198,12 @@
           Unter <a href="#faqModal" data-toggle="modal" data-target="#faqModal">
             Fragen und Antworten
           </a> gibt es mehr Details zum Hintergrund der Analyse.
-        </p>
+        </p> -->
       </div>
     </section>
 
     <!-- Ranking chart -->
-    <section class="jumbotron" style="padding-top: 0; padding-bottom: 0;">
+    <!-- <section class="jumbotron" style="padding-top: 0; padding-bottom: 0;">
       <div class="container">
         <div class="row">
           <div class="col-md-8">
@@ -226,14 +226,19 @@
         </div>
         <div id="rankingChart" class="svg-container"></div>
       </div>
-    </section>
+    </section> -->
 
     <section class="container">
       <div class="bs-callout bs-callout-warning">
         <h5>Information</h5>
         <p>
-          Kürzlich haben wir die Berechnung des Testvolumens für Deutschland angepasst.
-          Die "Vorhersage" der Gesamt-Testzahlen wird nun <a href="https://github.com/rtcovidlive/rtlive-global/pull/12">mit der wöchentlich berichteten Summe korrigiert</a>.
+          Etwa ein Jahr lang haben wir auf dieser Seite tagesaktuelle Modellierungen der Reproduktionszahl für Deutschland und weitere Länder bereitgestellt.
+          </br>
+          Aktuell ist jedoch die Datengrundlage nicht mehr gegeben und wir haben nicht genug Zeit das Modell zu pflegen.
+          </br>
+          Wir möchten uns für das große Interesse an diesen Analysen bedanken.
+          </br>
+          Mehr Informationen über das Modell und diese Webseite sind auf GitHub <a href="https://github.com/rtcovidlive/rtlive-global">hier</a> und <a href="https://github.com/michaelosthege/rtlive-dash-de">hier</a> zu finden.
         </p>
       </div>
     </section>
