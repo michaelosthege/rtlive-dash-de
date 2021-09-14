@@ -1,3 +1,9 @@
+/* Global settings */
+html {
+    background: #f7f6f3;
+}
+
+
 /* This is to align sub/superscripts on the same element */
 .subsup {
     position: relative;
